@@ -25,10 +25,25 @@
 	$row = $result->fetch_assoc();
 	$iban = $row["IBAN"];
 
-	if (str_contains($iban, "BOKB")) $bankName = "Bank of Kolyo";
-	if (str_contains($iban, "BOVB")) $bankName = "Bank of Veni";
+	if (str_contains($iban, "BOKB")) {
+		$bankName = "Bank of Kolyo";
+		$bankdbName = "BankOfKolyo";
+	}
+	if (str_contains($iban, "BOVB")) {
+		$bankName = "Bank of Veni";
+		$bankdbName = "BankOfVeni";
+	}
 
-	echo "<h1> Welcome to the bank of $bankName";
+	$sql = "SELECT FirstName, LastName, Balance FROM $bankdbName WHERE IBAN='$iban'";
+	$result = $conn->query($sql);
+	$row = $result->fetch_assoc();
+	$firstName = $row['FirstName'];
+	$lastName = $row['LastName'];
+	$balance = $row['Balance'];
+
+	echo "<h1> Welcome to the bank of $bankName, $firstName $lastName </h1>";
+
+	echo "<p> You currently have ". $balance . "lv.</p>";
 
 	// $sql = "INSERT INTO Credentials (Username, Password, IBAN) VALUES ('TestUser2','123456','BG01BOVB');";
 
