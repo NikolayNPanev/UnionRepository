@@ -1,4 +1,4 @@
 <?php
  include("DBFunc.php");
- Connect();
+ Test();
 ?>

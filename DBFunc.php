@@ -1,12 +1,17 @@
 <?php
+
+function Disconnect($conn){
+    mysqli_close($conn);
+  }
 	function Connect(){
-		$servername = "remotemysql.com";
-$username = "TCiMM7Lbhd";
-$password = "wEkolG5lDE";
-$database = "TCiMM7Lbhd";
-$dbname="BankOfKolyo";
-$dbname2="BankOfVeni";
-$dbname3="Credentials";
+		
+
+	}
+function test(){
+  include("connect.php");
+  $dbname="BankOfKolyo_Clients";
+$dbname2="BankOfVeni_Clients";
+//$dbname3="Credentials";
 
 $conn = new mysqli($servername, $username, $password,$database);
 
@@ -21,37 +26,38 @@ $conn = new mysqli($servername, $username, $password,$database);
 */
 $sql = "SELECT * FROM $dbname ORDER BY IBAN;";
 $sql2 = "SELECT * FROM $dbname2 ORDER BY IBAN;";
-$sql3 = "SELECT * FROM $dbname3;";
+//$sql3 = "SELECT * FROM $dbname3;";
 
 if(mysqli_query($conn, $sql)){
-	$result = $conn->query($sql);
-	$result2 = $conn->query($sql2);
-	$result3 = $conn->query($sql3);
-    echo "Success<br>";
+  $result = $conn->query($sql);
+  $result2 = $conn->query($sql2);
+  //$result3 = $conn->query($sql3);
+    echo "Success!<br>";
 
     if ($result->num_rows > 0) {
-  		// output data of each row
-  		while($row = $result->fetch_assoc()) {
-    	echo "IBAN: " . $row["IBAN"]. "<br> - Name: " . $row["FirstName"]. " " . $row["LastName"]. "<br>";
-  		}
-  	}
-  	if ($result2->num_rows > 0) {
-  		// output data of each row
-  		while($row = $result2->fetch_assoc()) {
-    	echo "IBAN: " . $row["IBAN"]. "<br> - Name: " . $row["FirstName"]. " " . $row["LastName"]. "<br>";
-  		}
-  	}
-  	if ($result3->num_rows > 0) {
-  		// output data of each row
-  		while($row = $result3->fetch_assoc()) {
-    	echo "Username: " . $row["Username"]. "<br> - Password: " . $row["Password"]."<br>";
-  		}
-  	}
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+      echo "IBAN: " . $row["IBAN"]. "<br> - Name: " . $row["FirstName"]. " " . $row["LastName"]. "<br>";
+      }
+    }
+    if ($result2->num_rows > 0) {
+      // output data of each row
+      while($row = $result2->fetch_assoc()) {
+      echo "IBAN: " . $row["IBAN"]. "<br> - Name: " . $row["FirstName"]. " " . $row["LastName"]. "<br>";
+      }
+    }
+    /*
+    if ($result3->num_rows > 0) {
+      // output data of each row
+      while($row = $result3->fetch_assoc()) {
+      echo "Username: " . $row["Username"]. "<br> - Password: " . $row["Password"]."<br>";
+      }
+      */
 } else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);	
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn); 
 }
  
 // Close connection
-mysqli_close($conn);
-	}
+Disconnect($conn);
+}
 ?>
