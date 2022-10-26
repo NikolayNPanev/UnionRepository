@@ -9,8 +9,8 @@ function Disconnect($conn){
 	}
 function test(){
   include("connect.php");
-  $dbname="BankOfKolyo_Clients";
-$dbname2="BankOfVeni_Clients";
+  $dbname="BankOfKolyo";
+$dbname2="BankOfVeni";
 //$dbname3="Credentials";
 
 $conn = new mysqli($servername, $username, $password,$database);
@@ -37,13 +37,13 @@ if(mysqli_query($conn, $sql)){
     if ($result->num_rows > 0) {
       // output data of each row
       while($row = $result->fetch_assoc()) {
-      echo "IBAN: " . $row["IBAN"]. "<br> - Name: " . $row["FirstName"]. " " . $row["LastName"]. "<br>";
+      echo "IBAN: " . $row["IBAN"]. "<br> - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
       }
     }
     if ($result2->num_rows > 0) {
       // output data of each row
       while($row = $result2->fetch_assoc()) {
-      echo "IBAN: " . $row["IBAN"]. "<br> - Name: " . $row["FirstName"]. " " . $row["LastName"]. "<br>";
+      echo "IBAN: " . $row["IBAN"]. "<br> - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
       }
     }
     /*
