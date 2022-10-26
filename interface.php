@@ -3,14 +3,22 @@
 <body>
 
 <?php 
-	$dbservername = "remotemysql.com";
-	$dbsername = "TCiMM7Lbhd";
-	$dbpassword = "wEkolG5lDE";
-	$database = "TCiMM7Lbhd";
+        include "functions.php";
+        
+        //Login Credentials
+        $dbservername = "sql11.freemysqlhosting.net";
+        $dbusername = "sql11524679";
+        $dbpassword = "VdUtWRxRUf";
+        $database = "sql11524679";
+        
+        
+        //Important constants
+        $currency = "lv.";
+        
 	//$dbname="BankOfKolyo";
-	$conn = new mysqli($dbservername, $dbsername, $dbpassword,$database);
+	$conn = new mysqli($dbservername, $dbusername, $dbpassword,$database);
 
-	try {	$sql = new PDO("mysql:host=$dbservername;dbname=$database", $dbsername, $dbpassword);
+	try {	$sql = new PDO("mysql:host=$dbservername;dbname=$database", $dbusername, $dbpassword);
 	// set the PDO error mode to exception
 	$sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	//echo "Connected successfully";
@@ -24,13 +32,30 @@
 	$result = $conn->query($sql);
 	$row = $result->fetch_assoc();
 	$iban = $row["IBAN"];
+        
 
-	if (str_contains($iban, "BOKB")) $bankName = "Bank of Kolyo";
-	if (str_contains($iban, "BOVB")) $bankName = "Bank of Veni";
+        //if (str_contains($iban, "BOVB"))
+        if (strpos($iban, "BOKB") !== false) { $bankName = "Bank of Kolyo"; $bankNameSql = "BankOfKolyo"; }
+        if (strpos($iban, "BOVB") !== false) { $bankName = "Bank of Veni"; $bankNameSql = "BankOfVeni"; }
 
-	echo "<h1> Welcome to the bank of $bankName";
-
-	// $sql = "INSERT INTO Credentials (Username, Password, IBAN) VALUES ('TestUser2','123456','BG01BOVB');";
+        $sql = "SELECT * FROM $bankNameSql WHERE IBAN='$iban'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $firstname = $row["firstname"];
+        $lastname = $row["lastname"];
+        $bal = $row["Balance"];
+        
+	echo "<h1> Welcome to the bank of $bankName, $firstname $lastname</h1>";
+        
+        echo "<p> You currently have $bal $currency</p>";
+        
+        ?>
+    
+        <a href="transactionHistory.php"><button >Transaction History</button></a>
+        <br><button onclick="addFunds()">Add funds</button>
+        <br><button id="removeFunds">Remove funds</button>
+    
+        <?php// $sql = "INSERT INTO Credentials (Username, Password, IBAN) VALUES ('TestUser2','123456','BG01BOVB');";
 
 	// if(mysqli_query($conn, $sql)){
 	// echo "Records inserted successfully.";
@@ -39,7 +64,6 @@
 	// }
 
 	// Close connection
-
 
 	mysqli_close($conn);
 
