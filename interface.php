@@ -15,7 +15,6 @@
         //Important constants
         $currency = "lv.";
         
-	//$dbname="BankOfKolyo";
 	$conn = new mysqli($dbservername, $dbusername, $dbpassword,$database);
 
 	try {	$sql = new PDO("mysql:host=$dbservername;dbname=$database", $dbusername, $dbpassword);
@@ -52,8 +51,8 @@
         ?>
     
         <a href="transactionHistory.php"><button >Transaction History</button></a>
-        <br><button onclick="addFunds()">Add funds</button>
-        <br><button id="removeFunds">Remove funds</button>
+        <p><button onclick="addFunds()">Add funds</button>
+        <p><button id="removeFunds">Remove funds</button>
     
         <?php// $sql = "INSERT INTO Credentials (Username, Password, IBAN) VALUES ('TestUser2','123456','BG01BOVB');";
 
