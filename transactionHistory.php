@@ -31,7 +31,7 @@ table {
 		</tr>
 		<tr>
 			<td><input type="date"></td>
-			<td><input type="date" value="2022-10-26"></td> <!--Make This Always Show Current Date-->
+			<td><input type="date" value=<?php echo date('Y-m-d'); ?>></td> <!--Sets to current date-->
 		</tr>
 		<tr>
 			<td class="fullrow" colspan="2"><button>GO</button></td>
