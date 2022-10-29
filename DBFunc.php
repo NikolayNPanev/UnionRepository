@@ -1,19 +1,98 @@
 <?php
-
 function Disconnect($conn){
     mysqli_close($conn);
   }
-	function Connect(){
-		
+////////////////////////////////////////////////////////////////////
+function Insert1($TABLE,$COLUMN,$VALUE){
+include("Connect.php");
+$sql = "INSERT INTO $TABLE($COLUMN) VALUES('$VALUE')";
 
-	}
+  if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+  } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }
+  Disconnect($conn);
+}
+////////////////////////////////////////////////////////////////////
+function Insert2($TABLE,$COLUMN1,$COLUMN12,$VALUE1,$VALUE2){
+include("Connect.php");
+$sql = "INSERT INTO $TABLE($COLUMN1,$COLUMN2) VALUES('$VALUE1','$VALUE2')";
+
+  if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+  } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }
+  Disconnect($conn);
+}
+//////////////////////////////////////////////////////////////////////
+function Insert3($TABLE,$COLUMN1,$COLUMN2,$COLUMN3,$VALUE1,$VALUE2,$VALUE3){
+include("Connect.php");
+$sql = "INSERT INTO $TABLE($COLUMN1,$COLUMN2,$COLUMN3) VALUES('$VALUE1','$VALUE2','$VALUE3')";
+
+  if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+  } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }
+  Disconnect($conn);
+}
+function Insert4($TABLE,$COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4,$VALUE1,$VALUE2,$VALUE3,$VALUE4){
+include("Connect.php");
+$sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4) VALUES ('$VALUE1','$VALUE2','$VALUE3','$VALUE4')";
+
+  if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+  } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }
+  Disconnect($conn);
+}
+
+
+//returns true if the username is available
+function CheckUsernameAvailability($Username){
+  include("Connect.php");
+  $query = "SELECT * FROM Credentials WHERE Username='$Username';";
+
+  if(mysqli_query($conn, $query)){
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0)
+    {
+      Disconnect($conn);
+      return 0;
+    }
+  }
+  Disconnect($conn);
+  return 1;
+}
+
+function CheckPassword($Username,$Password){
+  include("Connect.php");
+  $query = "SELECT * FROM Credentials WHERE Username='$Username' AND Password='$Password';";
+
+  if(mysqli_query($conn, $query)){
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0)
+    {
+      Disconnect($conn);
+      return 1;
+    }
+  }
+  Disconnect($conn);
+  return 0;
+}
+
+
+////////////////////////////////////////////////////////////////////////
 function test(){
-  include("connect.php");
+  include("Connect.php");
   $dbname="BankOfKolyo";
 $dbname2="BankOfVeni";
 //$dbname3="Credentials";
-
-$conn = new mysqli($servername, $username, $password,$database);
 
 /*try {
   $sql = new PDO("mysql:host=$servername;dbname=$database", $username, $password);

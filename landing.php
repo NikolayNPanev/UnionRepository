@@ -3,5 +3,5 @@
  include("Generator.php");
  Test();
 
- echo GenerateIban("BankOfVeni")
+ echo GenerateIban("BankOfVeni");
  ?>
