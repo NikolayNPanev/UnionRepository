@@ -9,7 +9,8 @@
 	$password = $_POST['password'];
 	$bank = $_POST['bankName'];
 	//Generate an IBAN in case the registration is successfull
-	$IBAN = GenerateIban($bank);
+	$IBANGen = GenerateIban($bank);
+	$IBAN = $IBANGen;
 	//This function returns true(1) if the username doesn't exist;
 	$UsernameAvailability = CheckUsernameAvailability($Username);
 
