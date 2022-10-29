@@ -1,94 +1,173 @@
 <?php
+////////////////////
+//                //
+//   DISCONNECT   //
+//                //
+////////////////////
 function Disconnect($conn){
     mysqli_close($conn);
   }
-////////////////////////////////////////////////////////////////////
+
+
+
+
+
+///////////////////////////
+//                       //
+//    INSERT FUNCTIONS   //
+//                       //
+///////////////////////////
 function Insert1($TABLE,$COLUMN,$VALUE){
+//database credentials
 include("Connect.php");
+//tell the database what to insert and into which table
 $sql = "INSERT INTO $TABLE($COLUMN) VALUES('$VALUE')";
 
+  //On a successfull insert
   if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
-  } else {
+  } 
+  //On a failed insert
+  else {
     echo "Error: " . $sql . "<br>" . $conn->error;
   }
   Disconnect($conn);
 }
+
+
+
 ////////////////////////////////////////////////////////////////////
 function Insert2($TABLE,$COLUMN1,$COLUMN12,$VALUE1,$VALUE2){
+//database credentials
 include("Connect.php");
 $sql = "INSERT INTO $TABLE($COLUMN1,$COLUMN2) VALUES('$VALUE1','$VALUE2')";
-
+  
+  //On a successfull insert
   if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
-  } else {
+  } 
+  //On a failed insert
+  else {
     echo "Error: " . $sql . "<br>" . $conn->error;
   }
   Disconnect($conn);
 }
+
+
+
 //////////////////////////////////////////////////////////////////////
 function Insert3($TABLE,$COLUMN1,$COLUMN2,$COLUMN3,$VALUE1,$VALUE2,$VALUE3){
+//database credentials
 include("Connect.php");
 $sql = "INSERT INTO $TABLE($COLUMN1,$COLUMN2,$COLUMN3) VALUES('$VALUE1','$VALUE2','$VALUE3')";
 
+  //On a successfull insert
   if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
-  } else {
+  } 
+  //On a failed insert
+  else {
     echo "Error: " . $sql . "<br>" . $conn->error;
   }
   Disconnect($conn);
 }
+
+
+
+////////////////////////////////////////////////////////////////////////
 function Insert4($TABLE,$COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4,$VALUE1,$VALUE2,$VALUE3,$VALUE4){
+//database credentials
 include("Connect.php");
 $sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4) VALUES ('$VALUE1','$VALUE2','$VALUE3','$VALUE4')";
 
+  //On a successfull insert
   if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
-  } else {
+  } 
+  //On a failed insert
+  else {
     echo "Error: " . $sql . "<br>" . $conn->error;
   }
   Disconnect($conn);
 }
 
 
-//returns true if the username is available
+
+
+
+///////////////////////////////
+//                           //
+//   CREDENTIALS FUNCTIONS   //
+//                           //
+///////////////////////////////
+
+//Returns true if the username doesn't eist in the database
 function CheckUsernameAvailability($Username){
+  //database credentials
   include("Connect.php");
+  //Ask the database for the entry with that username
   $query = "SELECT * FROM Credentials WHERE Username='$Username';";
 
   if(mysqli_query($conn, $query)){
+    //Get what the database has answered
     $result = $conn->query($query);
 
+    //If there is an entry with that username,
+    //disconnect and return false
     if ($result->num_rows > 0)
     {
       Disconnect($conn);
       return 0;
     }
   }
+  //If the username is not taken yet,
+  //disconnect and return true
   Disconnect($conn);
   return 1;
 }
 
+
+
+
+//////////////////////////////////////////////////////////////////////////
+//Checks if the user password is correct ,and returns true(1) if correct
 function CheckPassword($Username,$Password){
+  //database credentials
   include("Connect.php");
+
+  //Ask the database for the entry with these username and password
   $query = "SELECT * FROM Credentials WHERE Username='$Username' AND Password='$Password';";
 
   if(mysqli_query($conn, $query)){
+    //Get what the database has answered
     $result = $conn->query($query);
 
+    //If there is and entry with these username and password,
+    //disconnect from the database and return true(1)
     if ($result->num_rows > 0)
     {
       Disconnect($conn);
       return 1;
     }
   }
+  //if there isn't a user like this or the password doesn't match,
+  //disconnect and return false(0)
   Disconnect($conn);
   return 0;
 }
 
 
-////////////////////////////////////////////////////////////////////////
+
+
+
+
+/////////////////////////
+//                     //
+//   TEST  FUNCTIONS   //
+//                     //
+/////////////////////////
 function test(){
+  //database credentials
   include("Connect.php");
   $dbname="BankOfKolyo";
 $dbname2="BankOfVeni";
