@@ -21,5 +21,34 @@
 </form>
 
 <?php
-
 ?>
+<script type="text/javascript">
+
+
+  function getUrlParams() {
+  type:"module";
+  var paramMap = {};
+  if (location.search.length == 0) {
+    return paramMap;
+  }
+  var parts = location.search.substring(1).split("&");
+
+  for (var i = 0; i < parts.length; i ++) {
+    var component = parts[i].split("=");
+    paramMap [decodeURIComponent(component[0])] = decodeURIComponent(component[1]);
+  }
+  return paramMap;
+}
+
+
+  var params = getUrlParams();
+  document.getElementById('fname').value = params.fname;
+  document.getElementById('lname').value = params.lname;
+  document.getElementById('username').value = params.username;
+  if(params.bankName == "BankOfKolyo"){
+    document.getElementById('BankOfKolyo').checked = true;
+  }
+  if(params.bankName == "BankOfVeni"){
+    document.getElementById('BankOfVeni').checked = true;  
+  }
+</script>
