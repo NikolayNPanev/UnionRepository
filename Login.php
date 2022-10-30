@@ -9,6 +9,14 @@
 </form>
 
 <script type="text/javascript">
+
+
+  ////////////////////////////
+  //                        //
+  //   GET URL PARAMETERS   //
+  //                        //
+  ////////////////////////////
+
   function getUrlParams() {
   type:"module";
   var paramMap = {};
@@ -24,6 +32,18 @@
   return paramMap;
 }
 
+
 var params = getUrlParams();
-document.getElementById('username').value = params.username;
+
+//////////////////////////////
+//                          //
+//   PASTE URL PARAMETERS   //
+//                          //
+//////////////////////////////
+
+
+if(!(params.username == null)){
+    document.getElementById('username').value = params.username;
+  }
+
 </script>
