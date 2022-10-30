@@ -20,13 +20,17 @@
   <input type="submit" value="Submit">
 </form>
 
-<?php
-?>
+
+
 <script type="text/javascript">
 
+  ////////////////////////////
+  //                        //
+  //   GET URL PARAMETERS   //
+  //                        //
+  ////////////////////////////
 
   function getUrlParams() {
-  type:"module";
   var paramMap = {};
   if (location.search.length == 0) {
     return paramMap;
@@ -42,13 +46,32 @@
 
 
   var params = getUrlParams();
-  document.getElementById('fname').value = params.fname;
-  document.getElementById('lname').value = params.lname;
-  document.getElementById('username').value = params.username;
+  console.log(params.username);
+
+  //////////////////////////////
+  //                          //
+  //   PASTE URL PARAMETERS   //
+  //                          //
+  //////////////////////////////
+
+
+  if(!(params.username == null)){
+    document.getElementById('username').value = params.username;
+  }
+  if(!(params.fname == null)){
+    document.getElementById('fname').value = params.fname;
+  }
+  if(!(params.lname == null)){
+    document.getElementById('lname').value = params.lname;
+  }
   if(params.bankName == "BankOfKolyo"){
     document.getElementById('BankOfKolyo').checked = true;
+    document.getElementById('BankOfVeni').checked = false;
   }
   if(params.bankName == "BankOfVeni"){
     document.getElementById('BankOfVeni').checked = true;  
+    document.getElementById('BankOfKolyo').checked = false;  
   }
+
+  console.table("url params:",params);
 </script>
