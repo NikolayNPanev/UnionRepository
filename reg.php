@@ -23,12 +23,9 @@
 	}
 	//if the username does exist, alert the user and redirect him to the registration page
 	else{
-	echo '<script>alert("USERNAME ALREADY TAKEN")</script>';
+	echo "<script>alert('Username Already Taken! Please Try Again!');location='Register.php?fname=$fname&lname=$lname&username=$Username&bankName=$bank';</script>";
+
 	exit();
 	}
 ?>
 
-<script>
-	
-
-</script>

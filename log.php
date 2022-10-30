@@ -17,7 +17,7 @@ if($NOT_accountExists == 0 AND $CorrectPassword == 1){
 }
 
 //if the credentials do not match, alert the person and send them back to the login page to try again
-echo '<script>alert("Invalid Login Details! Please Try Again!");location="Login.php";</script>';
+echo "<script>alert('Invalid Login Details! Please Try Again!');location='Login.php?username=$Username';</script>";
 
 exit();
 ?>
