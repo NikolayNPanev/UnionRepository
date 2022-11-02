@@ -12,4 +12,5 @@ Please enter the information of the recepient and the amount:
 		<tr><td>Amount:</td><td><input type="text" name="recepientAmount" style="width: 190px"></td>
 	</table>
 </form>
-<a href="interface.php"><button>Return to Main Page</button></a>
+<?php
+echo "<a href='interface.php?username=$Username'><button>Return to Main Page</button></a>"; ?>
