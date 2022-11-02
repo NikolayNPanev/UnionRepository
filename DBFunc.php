@@ -101,7 +101,8 @@ $sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4) VALUES ('$VALUE
 //                           //
 ///////////////////////////////
 
-//Returns true if the username doesn't eist in the database
+
+//Returns true if the username doesn't exist in the database
 function CheckUsernameAvailability($Username){
   //database credentials
   include("Connect.php");
