@@ -1,36 +1,35 @@
 <!DOCTYPE html>
 <html>
 <body>
+<script src="funds.js"></script> 
 
 <?php 
-	$dbservername = "remotemysql.com";
-	$dbsername = "TCiMM7Lbhd";
-	$dbpassword = "wEkolG5lDE";
-	$database = "TCiMM7Lbhd";
-	//$dbname="BankOfKolyo";
-	$conn = new mysqli($dbservername, $dbsername, $dbpassword,$database);
+        include "databaseConnection.php";
+        //Login Credentials
+        
+        
+        
+        //Important constants
+        $currency = "lv.";
+        
 
-	try {	$sql = new PDO("mysql:host=$dbservername;dbname=$database", $dbsername, $dbpassword);
-	// set the PDO error mode to exception
-	$sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	//echo "Connected successfully";
-	} catch(PDOException $e) {
-	echo "Connection failed: " . $e->getMessage();
-	}
+        
+	echo "
+	<h1> Welcome to the bank of $bankName, $firstname $lastname</h1>
+	<p> You currently have $bal $currency </p>";
+        
+        ?>
+    
+        <a href="transactionHistory.php"><button style="width: 300px">Transaction History</button></a>
+        <p><a href="sendFunds.php"><button style="width: 300px">Send Funds</button></a>
 
-	$username = "TestUser2";
-
-	$sql = "SELECT IBAN FROM Credentials WHERE Username='$username'";
-	$result = $conn->query($sql);
-	$row = $result->fetch_assoc();
-	$iban = $row["IBAN"];
-
-	if (str_contains($iban, "BOKB")) $bankName = "Bank of Kolyo";
-	if (str_contains($iban, "BOVB")) $bankName = "Bank of Veni";
-
-	echo "<h1> Welcome to the bank of $bankName";
-
-	// $sql = "INSERT INTO Credentials (Username, Password, IBAN) VALUES ('TestUser2','123456','BG01BOVB');";
+        <form method="get" action="personalFunds.php">
+        <input type="submit" value="Add funds" style="width: 100px"> <input type="text" name="addedFunds" style="width: 190px">
+        <br><p><input type="submit" value="Remove funds" style="width: 100px"> <input type="text" name="removedFunds" style="width: 190px">
+        </form>
+        <p><button style="width: 300px">Log out</button>
+    
+        <?php// $sql = "INSERT INTO Credentials (Username, Password, IBAN) VALUES ('TestUser2','123456','BG01BOVB');";
 
 	// if(mysqli_query($conn, $sql)){
 	// echo "Records inserted successfully.";
@@ -40,8 +39,8 @@
 
 	// Close connection
 
-
 	mysqli_close($conn);
+
 
 
 ?>
