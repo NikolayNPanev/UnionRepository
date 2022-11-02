@@ -12,7 +12,7 @@ $CorrectPassword = CheckPassword($Username,$password);
 
 //if the passwords and username match the database, show an allert and redirect the page
 if($NOT_accountExists == 0 AND $CorrectPassword == 1){
-	echo "<script>alert('Welcome, $Username');location='interface.php';</script>";
+	echo "<script>alert('Welcome, $Username');location='interface.php?username=$Username';</script>";
 	exit();
 }
 
