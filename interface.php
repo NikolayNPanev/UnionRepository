@@ -4,7 +4,8 @@
 <script src="funds.js"></script> 
 
 <?php 
-        include "databaseConnection.php";
+        include("InterfaceVariables.php");
+	include("DBFunc.php");
         //Login Credentials
         
         
@@ -29,17 +30,9 @@
         </form>
         <p><button style="width: 300px">Log out</button>
     
-        <?php// $sql = "INSERT INTO Credentials (Username, Password, IBAN) VALUES ('TestUser2','123456','BG01BOVB');";
-
-	// if(mysqli_query($conn, $sql)){
-	// echo "Records inserted successfully.";
-	// } else{
-	// echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-	// }
-
-	// Close connection
-
-	mysqli_close($conn);
+        <?php
+		
+	Disconnect($conn);
 
 
 
