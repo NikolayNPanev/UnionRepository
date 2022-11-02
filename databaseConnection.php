@@ -1,24 +1,10 @@
 <?php
 	//include "tempVariables.php";
-
-	$dbservername = "sql11.freemysqlhosting.net";
-    $dbusername = "sql11524679";
-    $dbpassword = "VdUtWRxRUf";
-    $database = "sql11524679";
+	include("Connect.php");
+	
 
     $username = "TestUser2";
 
-    $conn = new mysqli($dbservername, $dbusername, $dbpassword,$database);
-
-	try {	$sql = new PDO("mysql:host=$dbservername;dbname=$database", $dbusername, $dbpassword);
-	// set the PDO error mode to exception
-	$sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	//echo "Connected successfully";
-	} catch(PDOException $e) {
-	echo "Connection failed: " . $e->getMessage();
-	}
-
-	
 
 	$sql = "SELECT IBAN FROM Credentials WHERE Username='$username'";
 	$result = $conn->query($sql);
