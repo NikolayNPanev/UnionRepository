@@ -2,6 +2,6 @@
  Centralized Online Banking
 
  Created by:
- - Nikolay Panev
- - Venelin Dachev
- 
+ - **Nikolay Panev** (NikolayNPanev)
+ - **Venelin Dachev** (VeniiiD)
+
