@@ -18,19 +18,20 @@
 	echo "
 	<h1> Welcome to the bank of $bankName, $firstname $lastname</h1>
 	<p> You currently have $bal $currency </p>";
-        
-        ?>
-    
-        <a href="transactionHistory.php"><button style="width: 300px">Transaction History</button></a>
-        <p><a href="sendFunds.php"><button style="width: 300px">Send Funds</button></a>
 
-        <form method="get" action="personalFunds.php">
-        <input type="submit" value="Add funds" style="width: 100px"> <input type="text" name="addedFunds" style="width: 190px">
-        <br><p><input type="submit" value="Remove funds" style="width: 100px"> <input type="text" name="removedFunds" style="width: 190px">
+        echo " <a href='transactionHistory.php?username=$Username'><button style='width: 300px'>Transaction History</button></a>
+        <p><a href='sendFunds.php?username=$Username'><button style='width: 300px'>Send Funds</button></a>
+
+        <form method='post' action='personalFunds.php?username=$Username'>
+        <input type='submit' value='Add funds' style='width: 100px'> <input type='text' name='addedFunds' style='width: 190px'>
+        <br><p><input type='submit' value='Remove funds' style='width: 100px'> <input type='text' name='removedFunds' style='width: 190px'>
+        <input type='hidden' name='username' value='$Username'>
         </form>
-        <p><button style="width: 300px">Log out</button>
+        <p><button style='width: 300px'>Log out</button>";
+        
+
     
-        <?php
+        
 		
 	Disconnect($conn);
 

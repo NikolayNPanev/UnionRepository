@@ -1,8 +1,11 @@
 <?php
+include('InterfaceVariables.php');
 
-echo "ayo mister white, welcome to the transaction history, bitch";
-?>
-<style>
+$currentDate = date('Y-m-d');
+
+echo 'ayo mister white, welcome to the transaction history, bitch';
+
+echo "<style>
 div {
   width: 250px;
   height: 100px;
@@ -24,21 +27,23 @@ table {
 </style>
 <div>
 	<table>
-		<tr><td class="fullrow" colspan="2">Transaction history</td></tr>
+		<tr><td class='fullrow' colspan='2'>Transaction history</td></tr>
 		<tr>
 			<td> Start date:</td>
 			<td> End date:</td>
 		</tr>
 		<tr>
-			<td><input type="date"></td>
-			<td><input type="date" value=<?php echo date('Y-m-d'); ?>></td> <!--Sets to current date-->
+			<td><input type='date'></td>
+			<td><input type='date' value=$currentDate></td> <!--Sets to current date-->
 		</tr>
 		<tr>
-			<td class="fullrow" colspan="2"><button>GO</button></td>
+			<td class='fullrow' colspan='2'><button>GO</button></td>
 		</tr>
 	</table>
 </div>
 
-<br><a href="interface.php"><button>Return to Main Page</button></a>
+<br><a href='interface.php?username=$Username'><button>Return to Main Page</button></a>";
+?>
+
 
 

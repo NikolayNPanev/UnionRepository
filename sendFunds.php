@@ -1,5 +1,5 @@
 <?php
-	include "databaseConnection.php";
+	include "interfaceVariables.php";
 
 	echo "<p> You currently have $bal $currency </p>";
 ?>

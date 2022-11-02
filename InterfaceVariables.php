@@ -6,9 +6,9 @@
 	$pos = strpos($url, "username=") + 9;
 	
 
-    	$username = substr($url, $pos);
+    	$Username = substr($url, $pos);
 
-	$sql = "SELECT IBAN FROM Credentials WHERE Username='$username'";
+	$sql = "SELECT IBAN FROM Credentials WHERE Username='$Username'";
 	$result = $conn->query($sql);
 	$row = $result->fetch_assoc();
 	$iban = $row["IBAN"];
@@ -18,7 +18,7 @@
 
    	$sql = "SELECT * FROM $bankNameSql WHERE IBAN='$iban'";
     	$result = $conn->query($sql);
-	$row = $result->fetch_assoc();
+		$row = $result->fetch_assoc();
 
     	$firstname = $row["firstname"];
     	$lastname = $row["lastname"];
