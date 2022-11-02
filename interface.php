@@ -27,7 +27,7 @@
         <br><p><input type='submit' value='Remove funds' style='width: 100px'> <input type='text' name='removedFunds' style='width: 190px'>
         <input type='hidden' name='username' value='$Username'>
         </form>
-        <p><button style='width: 300px'>Log out</button>";
+        <p><a href='landing.php'><button style='width: 300px'>Log out</button></a>";
         
 
     

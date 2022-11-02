@@ -3,8 +3,6 @@ include('InterfaceVariables.php');
 
 $currentDate = date('Y-m-d');
 
-echo 'ayo mister white, welcome to the transaction history, bitch';
-
 echo "<style>
 div {
   width: 250px;
