@@ -18,7 +18,7 @@
 	if( $UsernameAvailability== 1){
 		Insert4($bank,"firstname","lastname","Balance","IBAN",$fname,$lname,"0",$IBAN);
 		Insert3("Credentials","username","password","IBAN",$Username,$password,$IBAN);
-		header("Location: landing.php");
+		header("Location: interface.php");
 		exit();
 	}
 	//if the username does exist, alert the user and redirect him to the registration page
