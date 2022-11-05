@@ -91,9 +91,31 @@ $sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4) VALUES ('$VALUE
   Disconnect($conn);
 }
 
+///////////////////////////////
+//                           //
+//      FETCH FUNCTIONS      //
+//                           //
+///////////////////////////////
 
+function fetchIBAN($Username, $bank){
+  //database credentials
+  include("Connect.php");
+  //Select the IBAN from the appropriate bank
+  $query = "SELECT IBAN FROM $bank WHERE Username='$Username';";
 
+  if(mysqli_query($conn, $query)){
+    //Get what the database has answered
+    $result = $conn->query($query);
 
+    //If there is an entry with that username,
+    //disconnect and return false
+    if ($result->num_rows > 0)
+    {
+      Disconnect($conn);
+      return 0;
+    }
+  }
+}
 
 ///////////////////////////////
 //                           //

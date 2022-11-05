@@ -2,8 +2,12 @@
   <h3>Login:</h3>
   <label for="username">Username:</label><br>
   <input type="text" id="username" name="username" required><br>
-   <label for="password">Password:</label><br>
+  <label for="password">Password:</label><br>
   <input type="password" id="password" name="password" required><br>
+  <input type="radio" id="bankVeni" name="bank" value="BankOfVeni" required>
+  <label for="bankVeni">Bank of Veni</label><br>
+  <input type="radio" id="bankKolyo" name="bank" value="BankOfKolyo" required>
+  <label for="bankKolyo">Bank of Kolyo"</label><br>
   <form>
   <p><input type="submit" value="Submit">
 </form>
