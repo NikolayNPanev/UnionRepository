@@ -4,15 +4,18 @@ include("DBFunc.php");
 //Get the user input
 $Username = $_POST['username'];
 $password = $_POST['password'];
+$bank = $_POST['bank'];
 //This function returns true if the account doesn't exist
 $NOT_accountExists = CheckUsernameAvailability($Username);
 //This returns true if the password matches
 $CorrectPassword = CheckPassword($Username,$password);
-
+//This return true if the bank matches
+$CorrectBank = CheckBank($Username, $bank);
 
 //if the passwords and username match the database, show an allert and redirect the page
-if($NOT_accountExists == 0 AND $CorrectPassword == 1){
-	echo "<script>alert('Welcome, $Username');location='interface.php?username=$Username';</script>";
+if($NOT_accountExists == 0 AND $CorrectPassword == 1 AND $CorrectBank == 1){
+	$iban = fetchIBAN($Username, $bank);
+	echo "<script>alert('Welcome, $Username');location='interface.php?iban=$iban';</script>";
 	exit();
 }
 

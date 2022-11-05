@@ -103,18 +103,14 @@ function fetchIBAN($Username, $bank){
   //Select the IBAN from the appropriate bank
   $query = "SELECT IBAN FROM $bank WHERE Username='$Username';";
 
-  if(mysqli_query($conn, $query)){
-    //Get what the database has answered
-    $result = $conn->query($query);
-
-    //If there is an entry with that username,
-    //disconnect and return false
-    if ($result->num_rows > 0)
-    {
-      Disconnect($conn);
-      return 0;
-    }
-  }
+  //Get what the database has answered
+  $result = $conn->query($query);
+  $row = $result->fetch_assoc();
+  $iban = $row['IBAN'];
+  Disconnect($conn);
+  return $iban;
+    
+  
 }
 
 ///////////////////////////////
@@ -179,7 +175,29 @@ function CheckPassword($Username,$Password){
   return 0;
 }
 
+//Checks if the user has the correct bank selected, and returns true(1) if corret
+function CheckBank($Username, $bank){
+  //database credentials
+  include("Connect.php");
+  //Asks the database for an entry in the bank with this username
+  $query = "SELECT Username FROM $bank WHERE Username='$Username';";
 
+  if(mysqli_query($conn, $query)){
+    //Get what the database has answered
+    $result = $conn->query($query);
+
+    //If there is an entry in the bank with this username,
+    //disconnect from the database and return true(1)
+    if ($result->num_rows > 0){
+      Disconnect($conn);
+      return 1;
+    }
+  }
+  //if there isn't a username in this bank
+  //disconnect and return false(0)
+  Disconnect($conn);
+  return 0;
+}
 
 
 
