@@ -97,22 +97,28 @@ $sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4) VALUES ('$VALUE
 //                           //
 ///////////////////////////////
 
-function fetchIBAN($Username, $bank){
+//"Username", $Username, $bank, "IBAN");
+function fetchValue($checkCol, $checkValue, $table, $value){
   //database credentials
   include("Connect.php");
-  //Select the IBAN from the appropriate bank
-  $query = "SELECT IBAN FROM $bank WHERE Username='$Username';";
+  //Select the Value from the appropriate bank
+
+  $query = "SELECT $value FROM $table WHERE $checkCol='$checkValue';";
+
+  echo $query;
 
   //Get what the database has answered
   $result = $conn->query($query);
   $row = $result->fetch_assoc();
-  $iban = $row['IBAN'];
+  $fetchedValue = $row[$value];
   Disconnect($conn);
-  return $iban;
-    
-  
+  return $fetchedValue;
 }
 
+function bankName($iban){
+  if (strpos($iban, "BOKB") !== false) return "BankOfKolyo";
+  if (strpos($iban, "BOVB") !== false) return "BankOfVeni";
+}
 ///////////////////////////////
 //                           //
 //   CREDENTIALS FUNCTIONS   //
@@ -200,7 +206,64 @@ function CheckBank($Username, $bank){
 }
 
 
+///////////////////////////////
+//                           //
+//   FUND TRANSFER FUNCTIONS //
+//                           //
+///////////////////////////////
 
+function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason){
+  ///Check if user submitted his own IBAN
+  if ($senderIBAN == $recepientIBAN) return;
+
+  //Check if amount is 0 or negative
+  if ($amount <= 0) return;
+
+  //Check if Recepient IBAN exists
+  include("Connect.php");
+
+  $recepientBank = bankName($recepientIBAN);
+
+  $query = "SELECT * FROM $recepientBank WHERE IBAN='$recepientIBAN';";
+
+  if(mysqli_query($conn, $query)){
+    //Get what the database has answered
+    $result = $conn->query($query);
+
+    //If there isn't and entry with this IBAN,
+    //disconnect from the database and return
+    if ($result->num_rows <= 0)
+    {
+      Disconnect($conn);
+      return;
+    }
+
+    //Check if Sender has enough money
+
+    $senderBank = bankName($senderIBAN);
+
+    $senderBal = fetchValue("IBAN", $senderIBAN, $senderBank, "Balance");
+
+    if($senderBal < $amount) return;
+
+    //Update sender balance
+    $senderBal -= $amount;
+    $sql = "UPDATE $senderBank SET Balance=$senderBal WHERE IBAN='$senderIBAN';";
+    $conn->query($sql);
+
+    //Update recepient balance
+    $recepientBal = fetchValue("IBAN", $recepientIBAN, $recepientBank, "Balance");
+    $recepientBal += $amount;
+    $sql = "UPDATE $recepientBank SET Balance=$recepientBal WHERE IBAN='$recepientIBAN';";
+    $conn->query($sql);
+    Disconnect($conn);
+    //to-do: add transaction history
+
+  }
+
+
+
+}
 
 /////////////////////////
 //                     //
