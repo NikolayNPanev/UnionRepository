@@ -3,13 +3,14 @@
 	include("Connect.php");
 	
 	$url= $_SERVER['REQUEST_URI'];    
-	$pos = strpos($url, "username=") + 9;
-	$Username = substr($url, $pos);
+	$pos = strpos($url, "iban=") + 5;
+	$iban = substr($url, $pos);
+	//$Username = substr($url, $pos);
 
-	$sql = "SELECT IBAN FROM Credentials WHERE Username='$Username'";
+	$sql = "SELECT Username FROM Credentials WHERE IBAN='$iban'";
 	$result = $conn->query($sql);
 	$row = $result->fetch_assoc();
-	$iban = $row["IBAN"];
+	$Username = $row["Username"];
 
 	if (strpos($iban, "BOKB") !== false) { $bankName = "Bank of Kolyo"; $bankNameSql = "BankOfKolyo"; }
     if (strpos($iban, "BOVB") !== false) { $bankName = "Bank of Veni"; $bankNameSql = "BankOfVeni"; }

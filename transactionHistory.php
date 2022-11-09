@@ -40,7 +40,7 @@ table {
 	</table>
 </div>
 
-<br><a href='interface.php?username=$Username'><button>Return to Main Page</button></a>";
+<br><a href='interface.php?iban=$iban'><button>Return to Main Page</button></a>";
 ?>
 
 
