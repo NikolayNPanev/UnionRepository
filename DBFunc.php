@@ -105,8 +105,6 @@ function fetchValue($checkCol, $checkValue, $table, $value){
 
   $query = "SELECT $value FROM $table WHERE $checkCol='$checkValue';";
 
-  echo $query;
-
   //Get what the database has answered
   $result = $conn->query($query);
   $row = $result->fetch_assoc();
@@ -118,6 +116,7 @@ function fetchValue($checkCol, $checkValue, $table, $value){
 function bankName($iban){
   if (strpos($iban, "BOKB") !== false) return "BankOfKolyo";
   if (strpos($iban, "BOVB") !== false) return "BankOfVeni";
+  return "wrong";
 }
 ///////////////////////////////
 //                           //
@@ -214,15 +213,17 @@ function CheckBank($Username, $bank){
 
 function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason){
   ///Check if user submitted his own IBAN
-  if ($senderIBAN == $recepientIBAN) return;
+  if ($senderIBAN == $recepientIBAN) return "<script>alert('Error: You cannot send yourself money');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
 
   //Check if amount is 0 or negative
-  if ($amount <= 0) return;
+  if ($amount <= 0) return "<script>alert('Error: You must send a positive amount of money');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
 
   //Check if Recepient IBAN exists
   include("Connect.php");
 
   $recepientBank = bankName($recepientIBAN);
+
+  if ($recepientBank == "wrong") return "<script>alert('Error: No such IBAN exists');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
 
   $query = "SELECT * FROM $recepientBank WHERE IBAN='$recepientIBAN';";
 
@@ -235,7 +236,7 @@ function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason){
     if ($result->num_rows <= 0)
     {
       Disconnect($conn);
-      return;
+      return "<script>alert('Error: No such IBAN exists');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
     }
 
     //Check if Sender has enough money
@@ -244,7 +245,7 @@ function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason){
 
     $senderBal = fetchValue("IBAN", $senderIBAN, $senderBank, "Balance");
 
-    if($senderBal < $amount) return;
+    if($senderBal < $amount) return "<script>alert('Error: You do not have enough funds');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
 
     //Update sender balance
     $senderBal -= $amount;
@@ -257,8 +258,8 @@ function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason){
     $sql = "UPDATE $recepientBank SET Balance=$recepientBal WHERE IBAN='$recepientIBAN';";
     $conn->query($sql);
     Disconnect($conn);
-    //to-do: add transaction history
-
+    return "<script>alert('Successfully sent $amount');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
+    //to-do: add transactions to transaction history
   }
 
 

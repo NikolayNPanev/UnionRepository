@@ -16,5 +16,20 @@ Please enter the information of the recepient and the amount:
 	</table>
 	<input type="hidden" name="iban" value="<?php echo $iban;?>">
 </form>
-<?php
-echo "<a href='interface.php?iban=$iban'><button>Return to Main Page</button></a>"; ?>
+
+<a href='interface.php?iban=<?php echo $iban;?>'><button>Return to Main Page</button></a>
+<?php 
+	include("Connect.php");
+	include("DBFunc.php");
+	$query = "SELECT IBAN FROM BankOfKolyo";
+	$result = $conn->query($query);
+	foreach ($result as $row) {
+    echo "<br>".$row['IBAN'];
+}
+
+    $query = "SELECT IBAN FROM BankOfVeni";
+	$result = $conn->query($query);
+	foreach ($result as $row) {
+    echo "<br>".$row['IBAN'];
+}
+	Disconnect($conn);

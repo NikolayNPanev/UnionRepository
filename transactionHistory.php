@@ -2,8 +2,9 @@
 include('InterfaceVariables.php');
 
 $currentDate = date('Y-m-d');
+?>
 
-echo "<style>
+<style>
 div {
   width: 250px;
   height: 100px;
@@ -32,7 +33,7 @@ table {
 		</tr>
 		<tr>
 			<td><input type='date'></td>
-			<td><input type='date' value=$currentDate></td> <!--Sets to current date-->
+			<td><input type='date' value=<?php echo $currentDate; ?>></td> <!--Sets to current date-->
 		</tr>
 		<tr>
 			<td class='fullrow' colspan='2'><button>GO</button></td>
@@ -40,8 +41,8 @@ table {
 	</table>
 </div>
 
-<br><a href='interface.php?iban=$iban'><button>Return to Main Page</button></a>";
-?>
+<br><a href='interface.php?iban=<?php echo $iban; ?>'><button>Return to Main Page</button></a>
+
 
 
 
