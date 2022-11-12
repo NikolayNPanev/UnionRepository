@@ -91,6 +91,19 @@ $sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4) VALUES ('$VALUE
   Disconnect($conn);
 }
 
+////////////////////////////////////////////////////////////////////////
+function Insert5($TABLE,$COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4,$COLUMN5,$VALUE1,$VALUE2,$VALUE3,$VALUE4,$VALUE5){
+//database credentials
+include("Connect.php");
+$sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4, $COLUMN5) VALUES ('$VALUE1','$VALUE2','$VALUE3','$VALUE4','$VALUE5')";
+
+  //On a failed insert
+  if ($conn->query($sql) === FALSE) {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }
+  Disconnect($conn);
+}
+
 ///////////////////////////////
 //                           //
 //      FETCH FUNCTIONS      //
@@ -258,6 +271,7 @@ function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason){
     $sql = "UPDATE $recepientBank SET Balance=$recepientBal WHERE IBAN='$recepientIBAN';";
     $conn->query($sql);
     Disconnect($conn);
+    Insert5("Transactions", "TransactionDate", "SenderIBAN", "RecipientIBAN", "Amount", "Note", date('y-m-d-H:i:s'), $senderIBAN, $recepientIBAN, $amount, $reason);
     return "<script>alert('Successfully sent $amount');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
     //to-do: add transactions to transaction history
   }

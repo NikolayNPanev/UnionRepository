@@ -4,16 +4,7 @@
 <script src="funds.js"></script> 
 
 <?php 
-        include("InterfaceVariables.php");
-	include("DBFunc.php");
-        //Login Credentials
-        
-        
-        
-        //Important constants
-        $currency = "lv.";
-        
-
+        include("InterfaceVariables.php");    
         
 	echo "
 	<h1> Welcome to the bank of $bankName, $firstname $lastname</h1>

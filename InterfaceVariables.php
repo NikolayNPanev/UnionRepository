@@ -1,6 +1,7 @@
 <?php
 	//include "tempVariables.php";
 	include("Connect.php");
+	include("DBFunc.php");
 	
 	$url= $_SERVER['REQUEST_URI'];    
 	$pos = strpos($url, "iban=") + 5;
@@ -23,3 +24,4 @@
 	$lastname = $row["lastname"];
 	$bal = $row["Balance"];
 	$currency = "lv.";
+	//Disconnect($conn);
