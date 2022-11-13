@@ -1,5 +1,6 @@
 <?php
-	include ("InterfaceVariables.php");
+	include("InterfaceVariables.php");
+	include("Connect.php");
 
 	if ( empty($_GET["removedFunds"]) && empty($_GET["addedFunds"]) ) {
 		echo "<script>alert('Error: You need to incude an amount!');location='interface.php?iban=$iban';</script>";

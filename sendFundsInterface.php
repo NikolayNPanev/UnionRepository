@@ -20,7 +20,6 @@ Please enter the information of the recepient and the amount:
 <a href='interface.php?iban=<?php echo $iban;?>'><button>Return to Main Page</button></a>
 <?php 
 	include("Connect.php");
-	include("DBFunc.php");
 	$query = "SELECT IBAN FROM BankOfKolyo";
 	$result = $conn->query($query);
 	foreach ($result as $row) {

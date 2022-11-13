@@ -19,16 +19,6 @@
         <input type='hidden' name='iban' value='<?php echo $iban;?>'>
         </form>
         <p><a href='landing.php'><button style='width: 300px'>Log out</button></a>
-        
-
-    
-        
-	<?php	
-	Disconnect($conn); 
-        ?>
-
-
-
 
  </body>	
  </html>

@@ -24,4 +24,4 @@
 	$lastname = $row["lastname"];
 	$bal = $row["Balance"];
 	$currency = "lv.";
-	//Disconnect($conn);
+	Disconnect($conn);

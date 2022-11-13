@@ -220,7 +220,7 @@ function CheckBank($Username, $bank){
 
 ///////////////////////////////
 //                           //
-//   FUND TRANSFER FUNCTIONS //
+//  MAIN FUNCTIONALITY FUNCS //
 //                           //
 ///////////////////////////////
 
@@ -273,11 +273,20 @@ function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason){
     Disconnect($conn);
     Insert5("Transactions", "TransactionDate", "SenderIBAN", "RecipientIBAN", "Amount", "Note", date('y-m-d-H:i:s'), $senderIBAN, $recepientIBAN, $amount, $reason);
     return "<script>alert('Successfully sent $amount');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
-    //to-do: add transactions to transaction history
   }
+}
 
-
-
+function transactionHistory($IBAN, $StartDate, $EndDate){
+  include("Connect.php");
+  $StartDate = date("Ymd", strtotime($StartDate));
+  $EndDate = date("Ymd", strtotime($EndDate));
+  //Sent funds query
+  $query = "SELECT RecipientIBAN, TransactionDate, Amount, Note FROM Transactions WHERE SenderIBAN='$IBAN' AND TransactionDate >= '$StartDate' AND TransactionDate <= '$EndDate';";
+  if(mysqli_query($conn, $query)){
+    //Get what the database answered
+    $result = $conn->query($query);
+    return $result;
+  }
 }
 
 /////////////////////////

@@ -13,7 +13,13 @@ if(empty($_GET["endDate"])) {
 	echo "<script>alert('Error: Please specify an end date');location='transactionHistoryInterface.php?iban=$iban';</script>";
 }
 
-transactionHistry();
+
+$result = transactionHistory($iban, $startDate, $endDate);
+
+while($row = mysqli_fetch_assoc($result)){
+	echo $row['TransactionDate'] . "<br>";
+}
+
 
 ?>
 
