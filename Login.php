@@ -1,3 +1,7 @@
+<?php
+include("DBFunc.php");
+?>
+<body>
 <form method="post" action="log.php" name="userForm">
   <h3>Login:</h3>
   <label for="username">Username:</label><br>
@@ -9,8 +13,9 @@
   <input type="radio" id="bankKolyo" name="bank" value="BankOfKolyo" required>
   <label for="bankKolyo">Bank of Kolyo</label><br>
   <form>
-  <p><input type="submit" value="Submit">
+  <p><input type="submit" value="Submit"></p>
 </form>
+</body>
 
 <script type="text/javascript">
 

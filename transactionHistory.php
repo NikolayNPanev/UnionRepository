@@ -1,17 +1,18 @@
 <?php
 include('InterfaceVariables.php');
+include("DBFunc.php");
 
 $currentDate = date('Y-m-d');
-
-echo "<style>
-div {
-  width: 250px;
-  height: 100px;
-  border: 2px;
-  background-color: powderblue;
-  border: 2px solid black;
-  padding: 20px;
-}
+/*
+//echo "<style>
+//div {
+//  width: 250px;
+//height: 100px;
+//border: 2px;
+//background-color: powderblue;
+//border: 2px solid black;
+//padding: 20px;
+//}
 table {
 	text-align:  center;
 	width: 250px;
@@ -23,6 +24,8 @@ table {
 	font-size: 20px;
 }
 </style>
+*/
+echo"
 <div>
 	<table>
 		<tr><td class='fullrow' colspan='2'>Transaction history</td></tr>

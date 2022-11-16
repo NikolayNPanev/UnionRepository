@@ -1,4 +1,8 @@
 <?php
+echo "<link rel='stylesheet' href='BoKStyle.css'>";
+
+include("bankNumberSelector.php");
+
 ////////////////////
 //                //
 //   DISCONNECT   //
@@ -91,6 +95,22 @@ $sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4) VALUES ('$VALUE
   Disconnect($conn);
 }
 
+function Insert5($TABLE,$COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4,$COLUMN5,$VALUE1,$VALUE2,$VALUE3,$VALUE4,$VALUE5){
+//database credentials
+include("Connect.php");
+$sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4,$COLUMN5) VALUES ('$VALUE1','$VALUE2','$VALUE3','$VALUE4','$VALUE5')";
+
+  //On a successfull insert
+  if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+  } 
+  //On a failed insert
+  else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }
+  Disconnect($conn);
+}
+
 ///////////////////////////////
 //                           //
 //      FETCH FUNCTIONS      //
@@ -121,11 +141,14 @@ function fetchIBAN($Username, $bank){
 
 
 //Returns true if the username doesn't exist in the database
-function CheckUsernameAvailability($Username){
+function CheckUsernameAvailability($Username,$bankNumber){
   //database credentials
   include("Connect.php");
   //Ask the database for the entry with that username
-  $query = "SELECT * FROM Credentials WHERE Username='$Username';";
+
+  $bank=getBank($bankNumber);
+
+  $query = "SELECT * FROM $bank WHERE Username='$Username';";
 
   if(mysqli_query($conn, $query)){
     //Get what the database has answered

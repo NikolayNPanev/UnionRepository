@@ -1,3 +1,6 @@
+<?php
+include("DBFunc.php");
+?>
 <form method="post" action="reg.php" name="userForm">
   <h3>Registration:</h3>
   <label for="fname" value="">First name:</label><br>

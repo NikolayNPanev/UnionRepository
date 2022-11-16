@@ -1,4 +1,5 @@
 <?php
+include("DBFunc.php");
  //A test page
  //include("DBFunc.php");
  //include("Generator.php");

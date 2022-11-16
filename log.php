@@ -1,3 +1,4 @@
+
 <?php
 include("DBFunc.php");
 
@@ -5,8 +6,10 @@ include("DBFunc.php");
 $Username = $_POST['username'];
 $password = $_POST['password'];
 $bank = $_POST['bank'];
+
+$bankNumber=bankNumber($bank);
 //This function returns true if the account doesn't exist
-$NOT_accountExists = CheckUsernameAvailability($Username);
+$NOT_accountExists = CheckUsernameAvailability($Username,$bankNumber);
 //This returns true if the password matches
 $CorrectPassword = CheckPassword($Username,$password);
 //This return true if the bank matches
