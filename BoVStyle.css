@@ -1,0 +1,24 @@
+body {
+	background-color: black;
+	color: lightgrey;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+input{
+	background-color: #03b1fc;
+	color:black;
+	border-radius: 5px;
+	padding: 10px;
+	align-content: center;
+	font-size: 16px;
+	width:24%;
+}
+button{
+	background-color: #03b1fc;
+	color:black;
+	border-radius: 5px;
+	padding: 10px;
+	align-content: center;
+	font-size: 16px;
+	width:50%;
+}
