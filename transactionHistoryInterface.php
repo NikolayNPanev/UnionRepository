@@ -4,7 +4,7 @@ include('InterfaceVariables.php');
 $currentDate = date('Y-m-d');
 ?>
 
-<style>
+<!-- <style>
 div {
   width: 250px;
   height: 100px;
@@ -23,10 +23,10 @@ table {
 	color: indianred;
 	font-size: 20px;
 }
-</style>
+</style> -->
 <div>
 <form method='get' action='transactionHistory.php'>
-	<table>
+	<table id='trhistoryTable'>
 		<tr><td class='fullrow' colspan='2'>Transaction history</td></tr>
 		<tr>
 			<td> Start date:</td>

@@ -17,11 +17,17 @@ include("DBFunc.php");
   <label for="BankOfKolyo">Bank Of Kolyo</label><br>
   <input type="radio" id="BankOfVeni" name="bankName" value="BankOfVeni">
   <label for="BankOfVeni">Bank Of Veni</label><br>
+  <br>
   <form>
   <input type="checkbox" id="ToS" name="ToS" required>
   <label for="ToS"> I agree to the terms of service</label><br><br>
   <input type="submit" value="Submit">
+  <a href="landing.php"><input type="button" value="Back"></input></a>
 </form>
+
+<br><br>
+
+
 
 
 

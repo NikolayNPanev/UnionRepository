@@ -3,8 +3,42 @@ body {
 	color: lightgrey;
 	margin-left: 10%;
 	margin-right: 10%;
+	font-family: "Helvetica", arial, sans-serif;
+}
+
+#trhistorytable{
+	font-family: "Helvetica", arial, sans-serif;
+	width:50%;
+	border: 0px solid;
+	border-color:#e89b00;
+	border-bottom: 0px solid;
+	border-right: 0px solid;
+	border-radius: 5px;
+}
+table{
+	font-family: "Helvetica", arial, sans-serif;
+	width:fit-content;
+	border: 1px solid;
+	border-color:#e89b00;
+	border-bottom: 0px solid;
+	border-right: 0px solid;
+	border-radius: 5px;
+
+}
+tr{
+	border: 1px solid;
+	border-color:#e89b00
+}
+td{
+	border: 1px solid;
+	border-color:#e89b00;
+	border-top:0px solid;
+	border-left:0px solid;
+	border-radius: 5px;
+	padding-left: 1%;
 }
 input{
+	font-family: "Helvetica", arial, sans-serif;
 	background-color: #e89b00;
 	color:black;
 	border-radius: 5px;
@@ -14,6 +48,7 @@ input{
 	width:24%;
 }
 button{
+	font-family: "Helvetica", arial, sans-serif;
 	background-color: #e89b00;
 	color:black;
 	border-radius: 5px;
@@ -21,6 +56,78 @@ button{
 	align-content: center;
 	font-size: 16px;
 	width:50%;
+}
+input[type="checkbox"]{
+	position: absolute;
+	left:-99999px;
+}
+[type="checkbox"]:checked + label,
+[type="checkbox"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: white;
+}
+[type="checkbox"]:checked + label:before,
+[type="checkbox"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ddd;
+    border-radius: 30%;
+    background: #fff;
+}
+[type="checkbox"]:checked + label:after,
+[type="checkbox"]:not(:checked) + label:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: tomato;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border-radius: 30%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+[type="checkbox"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+[type="checkbox"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+
+
+
+input[type="date"], focus {
+    color: darkgrey;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+input[type="date"] {
+    appearance: none;
+    -webkit-appearance: none;
+    color: black;
+    font-family: "Helvetica", arial, sans-serif;
+    font-size: 18px;
+    border:1px solid #ecf0f1;
+    background:#e89b00;
+    padding:5px;
+    display: inline-block !important;
+    visibility: visible !important;
+    width:100%;
 }
 [type="radio"]:checked,
 [type="radio"]:not(:checked) {
@@ -35,7 +142,7 @@ button{
     cursor: pointer;
     line-height: 20px;
     display: inline-block;
-    color: #666;
+    color: white;
 }
 [type="radio"]:checked + label:before,
 [type="radio"]:not(:checked) + label:before {
