@@ -13,7 +13,7 @@ include("DBFunc.php");
   <input type="radio" id="bankKolyo" name="bank" value="BankOfKolyo" required>
   <label for="bankKolyo">Bank of Kolyo</label><br>
   <form>
-  <p><input type="submit" value="Submit"></p>
+  <p><input type="submit" value="Submit"><in><a href="landing.php"><input type="button" value="Back"></input></p>
 </form>
 </body>
 
