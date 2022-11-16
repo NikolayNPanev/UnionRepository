@@ -9,6 +9,7 @@ $bank = $_POST['bank'];
 
 $bankNumber=bankNumber($bank);
 //This function returns true if the account doesn't exist
+
 $NOT_accountExists = CheckUsernameAvailability($Username,$bankNumber);
 //This returns true if the password matches
 $CorrectPassword = CheckPassword($Username,$password);
@@ -17,7 +18,7 @@ $CorrectBank = CheckBank($Username, $bank);
 
 //if the passwords and username match the database, show an allert and redirect the page
 if($NOT_accountExists == 0 AND $CorrectPassword == 1 AND $CorrectBank == 1){
-	$iban = fetchIBAN($Username, $bank);
+	$iban = fetchValue("Username", $Username, $bank, "IBAN");
 	echo "<script>alert('Welcome, $Username');location='interface.php?iban=$iban';</script>";
 	exit();
 }

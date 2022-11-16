@@ -1,23 +1,15 @@
 <?php
-	//include "tempVariables.php";
 	include("Connect.php");
+	include("DBFunc.php");
 	
 	$url= $_SERVER['REQUEST_URI'];    
 	$pos = strpos($url, "iban=") + 5;
 	$iban = substr($url, $pos);
-	//$Username = substr($url, $pos);
-
-	if($iban)
-
-	// $sql = "SELECT Username FROM Credentials WHERE IBAN='$iban'";
-	// $result = $conn->query($sql);
-	// $row = $result->fetch_assoc();
-	// $Username = $row["Username"];
 
 	if (strpos($iban, "BOKB") !== false) { $bankName = "Bank of Kolyo"; $bankNameSql = "BankOfKolyo"; }
-    if (strpos($iban, "BOVB") !== false) { $bankName = "Bank of Veni"; $bankNameSql = "BankOfVeni"; }
+  if (strpos($iban, "BOVB") !== false) { $bankName = "Bank of Veni"; $bankNameSql = "BankOfVeni"; }
 
-   	$sql = "SELECT * FROM $bankNameSql WHERE IBAN='$iban'";
+  $sql = "SELECT * FROM $bankNameSql WHERE IBAN='$iban'";
 	$result = $conn->query($sql);
 	$row = $result->fetch_assoc();
 
@@ -25,3 +17,5 @@
 	$lastname = $row["lastname"];
 	$bal = $row["Balance"];
 	$currency = "lv.";
+	Disconnect($conn);
+  ?>

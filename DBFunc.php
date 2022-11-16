@@ -95,17 +95,15 @@ $sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4) VALUES ('$VALUE
   Disconnect($conn);
 }
 
+////////////////////////////////////////////////////////////////////////
 function Insert5($TABLE,$COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4,$COLUMN5,$VALUE1,$VALUE2,$VALUE3,$VALUE4,$VALUE5){
 //database credentials
 include("Connect.php");
-$sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4,$COLUMN5) VALUES ('$VALUE1','$VALUE2','$VALUE3','$VALUE4','$VALUE5')";
+$sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4, $COLUMN5) VALUES ('$VALUE1','$VALUE2','$VALUE3','$VALUE4','$VALUE5')";
 
-  //On a successfull insert
-  if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-  } 
   //On a failed insert
-  else {
+  if ($conn->query($sql) === FALSE) {
+
     echo "Error: " . $sql . "<br>" . $conn->error;
   }
   Disconnect($conn);
@@ -117,22 +115,27 @@ $sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4,$COLUMN5) VALUES
 //                           //
 ///////////////////////////////
 
-function fetchIBAN($Username, $bank){
+//"Username", $Username, $bank, "IBAN");
+function fetchValue($checkCol, $checkValue, $table, $value){
   //database credentials
   include("Connect.php");
-  //Select the IBAN from the appropriate bank
-  $query = "SELECT IBAN FROM $bank WHERE Username='$Username';";
+  //Select the Value from the appropriate bank
+
+  $query = "SELECT $value FROM $table WHERE $checkCol='$checkValue';";
 
   //Get what the database has answered
   $result = $conn->query($query);
   $row = $result->fetch_assoc();
-  $iban = $row['IBAN'];
+  $fetchedValue = $row[$value];
   Disconnect($conn);
-  return $iban;
-    
-  
+  return $fetchedValue;
 }
 
+function bankName($iban){
+  if (strpos($iban, "BOKB") !== false) return "BankOfKolyo";
+  if (strpos($iban, "BOVB") !== false) return "BankOfVeni";
+  return "wrong";
+}
 ///////////////////////////////
 //                           //
 //   CREDENTIALS FUNCTIONS   //
@@ -223,7 +226,76 @@ function CheckBank($Username, $bank){
 }
 
 
+///////////////////////////////
+//                           //
+//  MAIN FUNCTIONALITY FUNCS //
+//                           //
+///////////////////////////////
 
+function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason){
+  ///Check if user submitted his own IBAN
+  if ($senderIBAN == $recepientIBAN) return "<script>alert('Error: You cannot send yourself money');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
+
+  //Check if amount is 0 or negative
+  if ($amount <= 0) return "<script>alert('Error: You must send a positive amount of money');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
+
+  //Check if Recepient IBAN exists
+  include("Connect.php");
+
+  $recepientBank = bankName($recepientIBAN);
+
+  if ($recepientBank == "wrong") return "<script>alert('Error: No such IBAN exists');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
+
+  $query = "SELECT * FROM $recepientBank WHERE IBAN='$recepientIBAN';";
+
+  if(mysqli_query($conn, $query)){
+    //Get what the database has answered
+    $result = $conn->query($query);
+
+    //If there isn't and entry with this IBAN,
+    //disconnect from the database and return
+    if ($result->num_rows <= 0)
+    {
+      Disconnect($conn);
+      return "<script>alert('Error: No such IBAN exists');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
+    }
+
+    //Check if Sender has enough money
+
+    $senderBank = bankName($senderIBAN);
+
+    $senderBal = fetchValue("IBAN", $senderIBAN, $senderBank, "Balance");
+
+    if($senderBal < $amount) return "<script>alert('Error: You do not have enough funds');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
+
+    //Update sender balance
+    $senderBal -= $amount;
+    $sql = "UPDATE $senderBank SET Balance=$senderBal WHERE IBAN='$senderIBAN';";
+    $conn->query($sql);
+
+    //Update recepient balance
+    $recepientBal = fetchValue("IBAN", $recepientIBAN, $recepientBank, "Balance");
+    $recepientBal += $amount;
+    $sql = "UPDATE $recepientBank SET Balance=$recepientBal WHERE IBAN='$recepientIBAN';";
+    $conn->query($sql);
+    Disconnect($conn);
+    Insert5("Transactions", "TransactionDate", "SenderIBAN", "RecipientIBAN", "Amount", "Note", date('y-m-d-H:i:s'), $senderIBAN, $recepientIBAN, $amount, $reason);
+    return "<script>alert('Successfully sent $amount');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
+  }
+}
+
+function transactionHistory($IBAN, $StartDate, $EndDate){
+  include("Connect.php");
+  $StartDate = date("Ymd", strtotime($StartDate));
+  $EndDate = date("Ymd", strtotime($EndDate . ' +1 day'));
+  //Sent funds query
+  $query = "SELECT TransactionDate, SenderIBAN, RecipientIBAN, Amount, Note FROM Transactions WHERE (SenderIBAN='$IBAN' OR RecipientIBAN='$IBAN') AND (TransactionDate >= '$StartDate' AND TransactionDate <= '$EndDate') ORDER BY TransactionDate DESC;";
+  if(mysqli_query($conn, $query)){
+    //Get what the database answered
+    $result = $conn->query($query);
+    return $result;
+  }
+}
 
 /////////////////////////
 //                     //

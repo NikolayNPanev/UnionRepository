@@ -1,8 +1,9 @@
 <?php
-	include ("InterfaceVariables.php");
+	include("InterfaceVariables.php");
+	include("Connect.php");
 
 	if ( empty($_GET["removedFunds"]) && empty($_GET["addedFunds"]) ) {
-		header("Location: ./interface.php?iban=$iban");
+		echo "<script>alert('Error: You need to incude an amount!');location='interface.php?iban=$iban';</script>";
 	}
 
 	if ( isset($_GET["addedFunds"]) && empty($_GET["removedFunds"]) ) {
@@ -17,7 +18,8 @@
 	   
 		$sql = "UPDATE $bankNameSql SET Balance='$newBalance' WHERE IBAN='$iban'";
 		$conn->query($sql);
-		header("Location: ./interface.php?iban=$iban");
+		Disconnect($conn);
+		echo "<script>alert('Succesfully added $funds $currency');location='interface.php?iban=$iban';</script>";
 	}
 
 	if ( isset($_GET["removedFunds"]) && empty($_GET["addedFunds"]) ) {
@@ -32,9 +34,10 @@
 	   
 		$sql = "UPDATE $bankNameSql SET Balance='$newBalance' WHERE IBAN='$iban'";
 		$conn->query($sql);
-		header("Location: ./interface.php?iban=$iban");
+		Disconnect($conn);
+		echo "<script>alert('Succesfully removed $funds $currency');location='interface.php?iban=$iban';</script>";
 	}
 
 	if ( ($_GET["removedFunds"]) && ($_GET["addedFunds"]) ) {
-		header("Location: ./interface.php?iban=$iban");
+		echo "<script>alert('Error: You cannot add and remove funds at the same time!');location='interface.php?iban=$iban';</script>";
 	}
