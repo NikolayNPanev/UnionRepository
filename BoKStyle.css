@@ -55,12 +55,22 @@ button{
 	padding: 10px;
 	align-content: center;
 	font-size: 16px;
-	width:50%;
+	width:24%;
+}
+
+
+input[type="text"], input[type="password"]{
+	width:fit-content;
+}
+input[type="submit"]{
+	width:24%;
 }
 input[type="checkbox"]{
 	position: absolute;
 	left:-99999px;
 }
+
+
 [type="checkbox"]:checked + label,
 [type="checkbox"]:not(:checked) + label
 {
