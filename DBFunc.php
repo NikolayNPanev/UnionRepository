@@ -1,4 +1,8 @@
 <?php
+echo "<link rel='stylesheet' href='BoKStyle.css'>";
+
+include("bankNumberSelector.php");
+
 ////////////////////
 //                //
 //   DISCONNECT   //
@@ -99,6 +103,7 @@ $sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4, $COLUMN5) VALUE
 
   //On a failed insert
   if ($conn->query($sql) === FALSE) {
+
     echo "Error: " . $sql . "<br>" . $conn->error;
   }
   Disconnect($conn);
@@ -139,11 +144,14 @@ function bankName($iban){
 
 
 //Returns true if the username doesn't exist in the database
-function CheckUsernameAvailability($Username){
+function CheckUsernameAvailability($Username,$bankNumber){
   //database credentials
   include("Connect.php");
   //Ask the database for the entry with that username
-  $query = "SELECT * FROM Credentials WHERE Username='$Username';";
+
+  $bank=getBank($bankNumber);
+
+  $query = "SELECT * FROM $bank WHERE Username='$Username';";
 
   if(mysqli_query($conn, $query)){
     //Get what the database has answered

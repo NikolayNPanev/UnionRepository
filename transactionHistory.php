@@ -5,6 +5,7 @@
 </style>
 
 <?php
+
 include("InterfaceVariables.php");
 //Fetching the start and end date and setting a custom format
 $startDate = date("j M, Y", strtotime($_GET['startDate']));

@@ -1,5 +1,6 @@
 <?php
 	include "InterfaceVariables.php";
+	include ("DBFunc.php");
 
 	echo "<p> You currently have $bal $currency </p>";
 ?>

@@ -12,13 +12,14 @@
 	$IBANGen = GenerateIban($bank);
 	$IBAN = $IBANGen;
 	//This function returns true(1) if the username doesn't exist;
-	$UsernameAvailability = CheckUsernameAvailability($Username);
+	$bankNumber=bankNumber($bank);
+	$UsernameAvailability = CheckUsernameAvailability($Username,$bankNumber);
 
 	//if the username doesn't exist, inser a user with the credentials entered
 	if( $UsernameAvailability== 1){
-		Insert4($bank,"firstname","lastname","Balance","IBAN",$fname,$lname,"0",$IBAN);
+		Insert5($bank,"firstname","lastname","Balance","IBAN","Username",$fname,$lname,"0",$IBAN,$Username);
 		Insert3("Credentials","username","password","IBAN",$Username,$password,$IBAN);
-		header("Location: interface.php");
+		header("Location: interface.php?iban=$IBAN");
 		exit();
 	}
 	//if the username does exist, alert the user and redirect him to the registration page
