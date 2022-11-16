@@ -1,3 +1,9 @@
+<style>
+	td {
+		text-align:  center;
+	}
+</style>
+
 <?php
 include("InterfaceVariables.php");
 //Fetching the start and end date and setting a custom format
@@ -16,10 +22,29 @@ if(empty($_GET["endDate"])) {
 
 $result = transactionHistory($iban, $startDate, $endDate);
 
-while($row = mysqli_fetch_assoc($result)){
-	echo $row['TransactionDate'] . "<br>";
-}
+function displayHistory($result, $IBAN, $currency){
+	while($row = mysqli_fetch_assoc($result)){
+		echo "<tr>";
+		$date =  date("j M, Y", strtotime($row['TransactionDate']));;
+		$note = $row['Note'];
+		if($IBAN == $row['RecipientIBAN']){
+			$foreignIBAN = $row['SenderIBAN'];
+			$amount = "<td style='color:MediumSeaGreen'>+" . strval(number_format($row["Amount"], 2, '.', '')) . " $currency</td>";
+		} else if($IBAN == $row['SenderIBAN']) {
+			$foreignIBAN = $row['RecipientIBAN'];
+			$amount = "<td style='color:Tomato'>-" . strval(number_format($row["Amount"], 2, '.', '')) . " $currency</td>";
 
+		}
+		$foreignBank = bankName($foreignIBAN);
+		$firstName = fetchValue('IBAN', $foreignIBAN, $foreignBank, "firstname");
+		$lastName = fetchValue("IBAN", $foreignIBAN, $foreignBank, "lastname");
+		$name = $firstName . " " . $lastName;
+		 echo "<td>" . $date . "</td>";
+		 echo "<td>" . $name . "</td>";
+		 echo "<td>" . $note . "</td>";
+		 echo $amount . "</tr>";
+	}
+}
 
 ?>
 
@@ -41,5 +66,8 @@ while($row = mysqli_fetch_assoc($result)){
 		<td>Note</td>
 		<td>Amount</td>
 	</tr>
+	<?php displayHistory($result, $iban, $currency);?>
 </table>
+<br><a href='interface.php?iban=<?php echo $iban;?>'><button>Return to Main Page</button></a>
+<a href='transactionHistoryInterface.php?iban=<?php echo $iban;?>'><button>Back</button></a>
 

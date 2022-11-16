@@ -8,13 +8,15 @@
 	$iban = substr($url, $pos);
 	//$Username = substr($url, $pos);
 
-	$sql = "SELECT Username FROM Credentials WHERE IBAN='$iban'";
-	$result = $conn->query($sql);
-	$row = $result->fetch_assoc();
-	$Username = $row["Username"];
-
 	if (strpos($iban, "BOKB") !== false) { $bankName = "Bank of Kolyo"; $bankNameSql = "BankOfKolyo"; }
     if (strpos($iban, "BOVB") !== false) { $bankName = "Bank of Veni"; $bankNameSql = "BankOfVeni"; }
+
+	// $sql = "SELECT Username FROM Credentials WHERE IBAN='$iban'";
+	// $result = $conn->query($sql);
+	// $row = $result->fetch_assoc();
+	// $Username = $row["Username"];
+
+	
 
    	$sql = "SELECT * FROM $bankNameSql WHERE IBAN='$iban'";
 	$result = $conn->query($sql);

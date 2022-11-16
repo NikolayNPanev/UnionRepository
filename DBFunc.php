@@ -279,9 +279,9 @@ function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason){
 function transactionHistory($IBAN, $StartDate, $EndDate){
   include("Connect.php");
   $StartDate = date("Ymd", strtotime($StartDate));
-  $EndDate = date("Ymd", strtotime($EndDate));
+  $EndDate = date("Ymd", strtotime($EndDate . ' +1 day'));
   //Sent funds query
-  $query = "SELECT RecipientIBAN, TransactionDate, Amount, Note FROM Transactions WHERE SenderIBAN='$IBAN' AND TransactionDate >= '$StartDate' AND TransactionDate <= '$EndDate';";
+  $query = "SELECT TransactionDate, SenderIBAN, RecipientIBAN, Amount, Note FROM Transactions WHERE (SenderIBAN='$IBAN' OR RecipientIBAN='$IBAN') AND (TransactionDate >= '$StartDate' AND TransactionDate <= '$EndDate') ORDER BY TransactionDate DESC;";
   if(mysqli_query($conn, $query)){
     //Get what the database answered
     $result = $conn->query($query);
