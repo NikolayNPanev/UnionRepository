@@ -41,7 +41,7 @@ $sql = "INSERT INTO $TABLE($COLUMN) VALUES('$VALUE')";
 
 
 ////////////////////////////////////////////////////////////////////
-function Insert2($TABLE,$COLUMN1,$COLUMN12,$VALUE1,$VALUE2){
+function Insert2($TABLE,$COLUMN1,$COLUMN2,$VALUE1,$VALUE2){
 //database credentials
 include("Connect.php");
 $sql = "INSERT INTO $TABLE($COLUMN1,$COLUMN2) VALUES('$VALUE1','$VALUE2')";
@@ -232,7 +232,7 @@ function CheckBank($Username, $bank){
 //                           //
 ///////////////////////////////
 
-function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason){
+function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason, $currency){
   ///Check if user submitted his own IBAN
   if ($senderIBAN == $recepientIBAN) return "<script>alert('Error: You cannot send yourself money');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
 
@@ -280,7 +280,7 @@ function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason){
     $conn->query($sql);
     Disconnect($conn);
     Insert5("Transactions", "TransactionDate", "SenderIBAN", "RecipientIBAN", "Amount", "Note", date('y-m-d-H:i:s'), $senderIBAN, $recepientIBAN, $amount, $reason);
-    return "<script>alert('Successfully sent $amount');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
+    return "<script>alert('Successfully sent $amount $currency');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
   }
 }
 

@@ -27,7 +27,9 @@ table {
 <div>
 <form method='get' action='transactionHistory.php'>
 	<table id='trhistoryTable'>
-		<tr><td class='fullrow' colspan='2'>Transaction history</td></tr>
+		<tr>
+			<td class='fullrow' colspan='2'>Transaction history</td>
+		</tr>
 		<tr>
 			<td> Start date:</td>
 			<td> End date:</td>
@@ -37,7 +39,7 @@ table {
 			<td><input type='date' value=<?php echo $currentDate; ?> name='endDate'></td> <!--Sets to current date-->
 		</tr>
 		<tr>
-			<td class='fullrow' colspan='2'><button>GO</button></td>
+			<td class='fullrow' colspan='2'><button class='interfaceDouble'>GO</button></td>
 		</tr>
 	</table>
 <input type="hidden" name="iban" value="<?php echo $iban;?>">

@@ -10,16 +10,30 @@
 	<p> You currently have $bal $currency </p>";
   
   ?>
-        <a href='<?php echo "transactionHistoryInterface.php?iban=$iban";?>'><button >Transaction History</button></a>
-        <p><a href='<?php echo "sendFundsInterface.php?iban=$iban";?>'><button >Send Funds</button></a>
-
+  
+  <table>
+        <tr>
+                <td colspan=2><a href='<?php echo "transactionHistoryInterface.php?iban=$iban";?>'><button class='interfaceDouble'>Transaction History</button></a></td>
+        </tr>
+        <tr>
+                <td colspan=2><a href='<?php echo "sendFundsInterface.php?iban=$iban";?>'><button class='interfaceDouble'>Send Funds</button></a></td>
+        </tr>
         <form method='get' action='personalFunds.php'>
-        <input type='submit' value='Add funds' > <input type='text' name='addedFunds' >
-        <br><p><input type='submit' value='Remove funds' > <input type='text' name='removedFunds' >
+        <tr>
+                <td><input type='submit' value='Add funds' class='interfaceDouble'></td> 
+                <td><input type='text' name='addedFunds' class='interfaceDouble'></td>
+        </tr>
+        <tr>
+                <td><input type='submit' value='Remove funds' class='interfaceDouble'></td>
+                <td><input type='text' name='removedFunds' class='interfaceDouble'></td>
+        </tr>
         <input type='hidden' name='iban' value='<?php echo $iban;?>'>
         </form>
+</table>
 
-        <p><a href='landing.php'><button >Log out</button></a>
+
+
+<br><a href='landing.php'><button >Log out</button></a>
         
  </body>	
  </html>

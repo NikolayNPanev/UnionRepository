@@ -18,7 +18,7 @@
 	//if the username doesn't exist, inser a user with the credentials entered
 	if( $UsernameAvailability== 1){
 		Insert5($bank,"firstname","lastname","Balance","IBAN","Username",$fname,$lname,"0",$IBAN,$Username);
-		Insert3("Credentials","username","password","IBAN",$Username,$password,$IBAN);
+		Insert2("Credentials","username","password",$Username,$password);
 		header("Location: interface.php?iban=$IBAN");
 		exit();
 	}
