@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
+<link rel='stylesheet' href='BoKStyle.css'>
 <body>
 
 <?php 
-        include("InterfaceVariables.php");    
+        //include("InterfaceVariables.php");    
         
 	echo "
 	<h1> Welcome to the bank of $bankName, $firstname $lastname</h1>
