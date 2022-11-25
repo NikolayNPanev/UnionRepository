@@ -2,6 +2,24 @@
 echo "<link rel='stylesheet' href='BoKStyle.css'>";
 
 include("bankNumberSelector.php");
+  function CreateTables(){
+  $sql = "CREATE TABLE BankOfKolyo (
+  IBAN VARCHAR(37) PRIMARY KEY,
+  firstname VARCHAR(30) NOT NULL,
+  lastname VARCHAR(30) NOT NULL,
+  username VARCHAR(50),
+  reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  balance DOUBLE(40,0);
+  )";
+
+  if ($conn->query($sql) === TRUE) {
+    echo "Table MyGuests created successfully";
+  } else {
+    echo "Error creating table: " . $conn->error;
+  }
+
+  $conn->close();
+}
 
 ////////////////////
 //                //
