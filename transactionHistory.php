@@ -5,7 +5,6 @@
 </style>
 
 <?php
-CreateTables();
 
 include("InterfaceVariables.php");
 //Fetching the start and end date and setting a custom format

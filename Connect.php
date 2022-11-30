@@ -1,7 +1,7 @@
 <?php
-$servername = "54.37.177.228";
-$username = "primodes_bank";
-$password = "bankappphp123";
-$database = "primodes_bankapp";
+$servername = "127.0.0.1";
+$username = "root";
+$password = "toor";
+$database = "union_rep";
 $conn = new mysqli($servername, $username, $password,$database);
 ?>
