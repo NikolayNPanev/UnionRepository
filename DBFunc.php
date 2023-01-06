@@ -255,17 +255,17 @@ function CheckBank($Username, $bank){
 
 function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason, $currency){
   ///Check if user submitted his own IBAN
-  if ($senderIBAN == $recepientIBAN) return "<script>alert('Error: You cannot send yourself money');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
+  if ($senderIBAN == $recepientIBAN) return "<script>alert('Грешка: Не можеш да си пращаш пари');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
 
   //Check if amount is 0 or negative
-  if ($amount <= 0) return "<script>alert('Error: You must send a positive amount of money');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
+  if ($amount <= 0) return "<script>alert('Грешка: Трябва да пратиш положителна сума');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
 
-  //Check if Recepient IBAN exists
-  include("Connect.php");
 
   $recepientBank = bankName($recepientIBAN);
+  //Check if the IBAN exists in the written names
+  if ($recepientBank == "wrong") return "<script>alert('Грешка: Не съществува такъв IBAN');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
 
-  if ($recepientBank == "wrong") return "<script>alert('Error: No such IBAN exists');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
+  include("Connect.php");
 
   $query = "SELECT * FROM $recepientBank WHERE IBAN='$recepientIBAN';";
 
@@ -273,12 +273,12 @@ function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason, $currency){
     //Get what the database has answered
     $result = $conn->query($query);
 
-    //If there isn't and entry with this IBAN,
+    //If there isn't an entry with this IBAN,
     //disconnect from the database and return
     if ($result->num_rows <= 0)
     {
       Disconnect($conn);
-      return "<script>alert('Error: No such IBAN exists');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
+      return "<script>alert('Грешка: Не съществува такъв IBAN');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
     }
 
     //Check if Sender has enough money
@@ -287,7 +287,7 @@ function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason, $currency){
 
     $senderBal = fetchValue("IBAN", $senderIBAN, $senderBank, "Balance");
 
-    if($senderBal < $amount) return "<script>alert('Error: You do not have enough funds');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
+    if($senderBal < $amount) return "<script>alert('Грешка: Недостатъчни средства');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
 
     //Update sender balance
     $senderBal -= $amount;
@@ -301,7 +301,7 @@ function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason, $currency){
     $conn->query($sql);
     Disconnect($conn);
     Insert5("Transactions", "TransactionDate", "SenderIBAN", "RecipientIBAN", "Amount", "Note", date('y-m-d-H:i:s'), $senderIBAN, $recepientIBAN, $amount, $reason);
-    return "<script>alert('Successfully sent $amount $currency');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
+    return "<script>alert('Успешно изпрати $amount $currency');location='sendFundsInterface.php?iban=$senderIBAN';</script>";
   }
 }
 

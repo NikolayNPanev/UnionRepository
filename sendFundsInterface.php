@@ -3,10 +3,11 @@
 
 	echo "<p> Баланс: $bal $currency </p>";
 ?>
-Please enter the information of the recepient and the amount:
+
+Моля въведете информацията на получателя и сумата:
 <form method="get" action="sendFunds.php">
 	
-	<table>
+	<table style="margin-top: 1rem;">
 		<tr><td>Собствено име(получател):</td><td><input type="text" name="recepientFirstName"  required></td>
 		<tr><td>Фамилно име(получател):</td><td><input type="text" name="recepientLastName" class='sendFunds' required></td>
 		<tr><td>IBAN:</td><td><input type="text" class="sendFunds" name="recepientIBAN"  required></td>
