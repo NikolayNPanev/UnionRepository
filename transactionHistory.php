@@ -51,24 +51,24 @@ function displayHistory($result, $IBAN, $currency){
 
 <table>
 	<tr>
-		<td colspan='4'>Transaction History</td>
+		<td colspan='4'>История на Транзакциите</td>
 	</tr>
 	<tr>
-		<td colspan='2'>From</td>
-		<td colspan='2'>To</td>
+		<td colspan='2'>От</td>
+		<td colspan='2'>До</td>
 	</tr>
 	<tr>
 		<td colspan='2'><?php echo $startDate;?></td>
 		<td colspan='2'><?php echo $endDate;?></td>
 	</tr>
 	<tr>
-		<td>Date</td>
-		<td>Name</td>
-		<td>Note</td>
-		<td>Amount</td>
+		<td>Дата</td>
+		<td>Име</td>
+		<td>Основание</td>
+		<td>Сума</td>
 	</tr>
 	<?php displayHistory($result, $iban, $currency);?>
 </table>
-<br><a href='interface.php?iban=<?php echo $iban;?>'><button>Return to Main Page</button></a>
-<a href='transactionHistoryInterface.php?iban=<?php echo $iban;?>'><button>Back</button></a>
+<br><a href='interface.php?iban=<?php echo $iban;?>'><button>Връщане към основната страница</button></a>
+<a href='transactionHistoryInterface.php?iban=<?php echo $iban;?>'><button>Назад</button></a>
 

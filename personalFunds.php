@@ -3,7 +3,7 @@
 	include("Connect.php");
 
 	if ( empty($_GET["removedFunds"]) && empty($_GET["addedFunds"]) ) {
-		echo "<script>alert('Error: You need to incude an amount!');location='interface.php?iban=$iban';</script>";
+		echo "<script>alert('Error: Трябва да добавиш сума!');location='interface.php?iban=$iban';</script>";
 	}
 
 	if ( isset($_GET["addedFunds"]) && empty($_GET["removedFunds"]) ) {
@@ -19,7 +19,7 @@
 		$sql = "UPDATE $bankNameSql SET Balance='$newBalance' WHERE IBAN='$iban'";
 		$conn->query($sql);
 		Disconnect($conn);
-		echo "<script>alert('Succesfully added $funds $currency');location='interface.php?iban=$iban';</script>";
+		echo "<script>alert('Успешно внесени $funds $currency');location='interface.php?iban=$iban';</script>";
 	}
 
 	if ( isset($_GET["removedFunds"]) && empty($_GET["addedFunds"]) ) {
@@ -35,9 +35,9 @@
 		$sql = "UPDATE $bankNameSql SET Balance='$newBalance' WHERE IBAN='$iban'";
 		$conn->query($sql);
 		Disconnect($conn);
-		echo "<script>alert('Succesfully removed $funds $currency');location='interface.php?iban=$iban';</script>";
+		echo "<script>alert('Успешно изтеглени $funds $currency');location='interface.php?iban=$iban';</script>";
 	}
 
 	if ( ($_GET["removedFunds"]) && ($_GET["addedFunds"]) ) {
-		echo "<script>alert('Error: You cannot add and remove funds at the same time!');location='interface.php?iban=$iban';</script>";
+		echo "<script>alert('Error: Не може да добавиш и премахнеш пари едновременно!');location='interface.php?iban=$iban';</script>";
 	}

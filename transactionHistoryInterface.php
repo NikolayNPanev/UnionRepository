@@ -28,25 +28,25 @@ table {
 <form method='get' action='transactionHistory.php'>
 	<table id='trhistoryTable'>
 		<tr>
-			<td class='fullrow' colspan='2'>Transaction history</td>
+			<td class='fullrow' colspan='2'>История на транзакциите</td>
 		</tr>
 		<tr>
-			<td> Start date:</td>
-			<td> End date:</td>
+			<td> Начална дата:</td>
+			<td> Крайна дата:</td>
 		</tr>
 		<tr>
 			<td><input type='date' name='startDate'></td>
 			<td><input type='date' value=<?php echo $currentDate; ?> name='endDate'></td> <!--Sets to current date-->
 		</tr>
 		<tr>
-			<td class='fullrow' colspan='2'><button class='interfaceDouble'>GO</button></td>
+			<td class='fullrow' colspan='2'><button class='interfaceDouble'>Покажи</button></td>
 		</tr>
 	</table>
 <input type="hidden" name="iban" value="<?php echo $iban;?>">
 </form>
 </div>
 
-<br><a href='interface.php?iban=<?php echo $iban; ?>'><button>Return to Main Page</button></a>
+<br><a href='interface.php?iban=<?php echo $iban; ?>'><button>Връщане към основната страница</button></a>
 
 
 

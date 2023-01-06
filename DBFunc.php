@@ -1,8 +1,17 @@
 <?php
+
+////////////////
+//            //
+//  INCLUDES  //
+//            //
+////////////////
+
 echo "<link rel='stylesheet' href='BoKStyle.css'>";
 
 include("bankNumberSelector.php");
-  function CreateTables(){
+
+//IGNORE THIS FUNCTION!!!!!!!!!!!!!!!
+function CreateTables(){
   $sql = "CREATE TABLE BankOfKolyo (
   IBAN VARCHAR(37) PRIMARY KEY,
   firstname VARCHAR(30) NOT NULL,
@@ -27,11 +36,8 @@ include("bankNumberSelector.php");
 //                //
 ////////////////////
 function Disconnect($conn){
-    mysqli_close($conn);
-  }
-
-
-
+  mysqli_close($conn);
+}
 
 
 ///////////////////////////
@@ -40,10 +46,10 @@ function Disconnect($conn){
 //                       //
 ///////////////////////////
 function Insert1($TABLE,$COLUMN,$VALUE){
-//database credentials
-include("Connect.php");
-//tell the database what to insert and into which table
-$sql = "INSERT INTO $TABLE($COLUMN) VALUES('$VALUE')";
+  //database credentials
+  include("Connect.php");
+  //tell the database what to insert and into which table
+  $sql = "INSERT INTO $TABLE($COLUMN) VALUES('$VALUE')";
 
   //On a successfull insert
   if ($conn->query($sql) === TRUE) {
@@ -60,10 +66,10 @@ $sql = "INSERT INTO $TABLE($COLUMN) VALUES('$VALUE')";
 
 ////////////////////////////////////////////////////////////////////
 function Insert2($TABLE,$COLUMN1,$COLUMN2,$VALUE1,$VALUE2){
-//database credentials
-include("Connect.php");
-$sql = "INSERT INTO $TABLE($COLUMN1,$COLUMN2) VALUES('$VALUE1','$VALUE2')";
-  
+  //database credentials
+  include("Connect.php");
+  $sql = "INSERT INTO $TABLE($COLUMN1,$COLUMN2) VALUES('$VALUE1','$VALUE2')";
+    
   //On a successfull insert
   if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
@@ -79,9 +85,9 @@ $sql = "INSERT INTO $TABLE($COLUMN1,$COLUMN2) VALUES('$VALUE1','$VALUE2')";
 
 //////////////////////////////////////////////////////////////////////
 function Insert3($TABLE,$COLUMN1,$COLUMN2,$COLUMN3,$VALUE1,$VALUE2,$VALUE3){
-//database credentials
-include("Connect.php");
-$sql = "INSERT INTO $TABLE($COLUMN1,$COLUMN2,$COLUMN3) VALUES('$VALUE1','$VALUE2','$VALUE3')";
+  //database credentials
+  include("Connect.php");
+  $sql = "INSERT INTO $TABLE($COLUMN1,$COLUMN2,$COLUMN3) VALUES('$VALUE1','$VALUE2','$VALUE3')";
 
   //On a successfull insert
   if ($conn->query($sql) === TRUE) {
@@ -98,9 +104,9 @@ $sql = "INSERT INTO $TABLE($COLUMN1,$COLUMN2,$COLUMN3) VALUES('$VALUE1','$VALUE2
 
 ////////////////////////////////////////////////////////////////////////
 function Insert4($TABLE,$COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4,$VALUE1,$VALUE2,$VALUE3,$VALUE4){
-//database credentials
-include("Connect.php");
-$sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4) VALUES ('$VALUE1','$VALUE2','$VALUE3','$VALUE4')";
+  //database credentials
+  include("Connect.php");
+  $sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4) VALUES ('$VALUE1','$VALUE2','$VALUE3','$VALUE4')";
 
   //On a successfull insert
   if ($conn->query($sql) === TRUE) {
@@ -115,9 +121,9 @@ $sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4) VALUES ('$VALUE
 
 ////////////////////////////////////////////////////////////////////////
 function Insert5($TABLE,$COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4,$COLUMN5,$VALUE1,$VALUE2,$VALUE3,$VALUE4,$VALUE5){
-//database credentials
-include("Connect.php");
-$sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4, $COLUMN5) VALUES ('$VALUE1','$VALUE2','$VALUE3','$VALUE4','$VALUE5')";
+  //database credentials
+  include("Connect.php");
+  $sql = "INSERT INTO $TABLE ($COLUMN1,$COLUMN2,$COLUMN3,$COLUMN4, $COLUMN5) VALUES ('$VALUE1','$VALUE2','$VALUE3','$VALUE4','$VALUE5')";
 
   //On a failed insert
   if ($conn->query($sql) === FALSE) {
@@ -189,9 +195,6 @@ function CheckUsernameAvailability($Username,$bankNumber){
   return 1;
 }
 
-
-
-
 //////////////////////////////////////////////////////////////////////////
 //Checks if the user password is correct ,and returns true(1) if correct
 function CheckPassword($Username,$Password){
@@ -244,11 +247,11 @@ function CheckBank($Username, $bank){
 }
 
 
-///////////////////////////////
-//                           //
-//  MAIN FUNCTIONALITY FUNCS //
-//                           //
-///////////////////////////////
+////////////////////////////
+//                        //
+//  TRANSACTION FUNCTIONS //
+//                        //
+////////////////////////////
 
 function sendFunds($senderIBAN, $recepientIBAN, $amount, $reason, $currency){
   ///Check if user submitted his own IBAN
@@ -324,23 +327,23 @@ function test(){
   //database credentials
   include("Connect.php");
   $dbname="BankOfKolyo";
-$dbname2="BankOfVeni";
-//$dbname3="Credentials";
+  $dbname2="BankOfVeni";
+  //$dbname3="Credentials";
 
-/*try {
-  $sql = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-  // set the PDO error mode to exception
-  $sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  echo "Connected successfully";
-} catch(PDOException $e) {
-  echo "Connection failed: " . $e->getMessage();
-}
-*/
-$sql = "SELECT * FROM $dbname ORDER BY IBAN;";
-$sql2 = "SELECT * FROM $dbname2 ORDER BY IBAN;";
-//$sql3 = "SELECT * FROM $dbname3;";
+  /*try {
+    $sql = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+    // set the PDO error mode to exception
+    $sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connected successfully";
+  } catch(PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+  }
+  */
+  $sql = "SELECT * FROM $dbname ORDER BY IBAN;";
+  $sql2 = "SELECT * FROM $dbname2 ORDER BY IBAN;";
+  //$sql3 = "SELECT * FROM $dbname3;";
 
-if(mysqli_query($conn, $sql)){
+  if(mysqli_query($conn, $sql)){
   $result = $conn->query($sql);
   $result2 = $conn->query($sql2);
   //$result3 = $conn->query($sql3);
@@ -365,11 +368,11 @@ if(mysqli_query($conn, $sql)){
       echo "Username: " . $row["Username"]. "<br> - Password: " . $row["Password"]."<br>";
       }
       */
-} else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn); 
-}
- 
-// Close connection
-Disconnect($conn);
+  } else{
+      echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn); 
+  }
+   
+  // Close connection
+  Disconnect($conn);
 }
 ?>

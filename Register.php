@@ -2,16 +2,16 @@
 include("DBFunc.php");
 ?>
 <form method="post" action="reg.php" name="userForm">
-  <h3>Registration:</h3>
-  <label for="fname" value="">First name:</label><br>
+  <h3>Регистрация:</h3>
+  <label for="fname" value="">Собствено име:</label><br>
   <input type="text" id="fname" name="fname" ><br>
-  <label for="lname">Last name:</label><br>
+  <label for="lname">Фамилно име:</label><br>
   <input type="text" id="lname" name="lname"><br>
-  <label for="username">Username:</label><br>
+  <label for="username">Потребителско име:</label><br>
   <input type="text" id="username" name="username" required><br>
-   <label for="password">Password:</label><br>
+   <label for="password">Парола:</label><br>
   <input type="password" id="password" name="password" required><br>
-  <h3>What bank would you like to register for:</h3>
+  <h3>За коя банка е регистрацията:</h3>
 
   <input type="radio" id="BankOfKolyo" name="bankName" value="BankOfKolyo" required>
   <label for="BankOfKolyo">Bank Of Kolyo</label><br>
@@ -20,9 +20,9 @@ include("DBFunc.php");
   <br>
   <form>
   <input type="checkbox" id="ToS" name="ToS" required>
-  <label for="ToS"> I agree to the terms of service</label><br><br>
-  <input type="submit" value="Submit">
-  <a href="landing.php"><input type="button" value="Back"></input></a>
+  <label for="ToS">Съгласен съм с общите условия</label><br><br>
+  <input type="submit" value="Регистрация">
+  <a href="landing.php"><input type="button" value="Назад"></input></a>
 </form>
 
 <br><br>

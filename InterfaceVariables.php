@@ -16,6 +16,6 @@
 	$firstname = $row["firstname"];
 	$lastname = $row["lastname"];
 	$bal = $row["Balance"];
-	$currency = "lv.";
+	$currency = "лв.";
 	Disconnect($conn);
   ?>
