@@ -28,7 +28,7 @@
 	}
 
 	if ( isset($_GET["removedFunds"]) && empty($_GET["addedFunds"]) ) {
-		$funds = floatval(_GET["removedFunds"]);
+		$funds = floatval($_GET["removedFunds"]);
 		if($funds <= 0) {
 			echo "<script>alert('Грешка: Моля въведете валидно число');location='interface.php?iban=$iban';</script>";
 			return;

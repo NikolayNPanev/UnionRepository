@@ -10,6 +10,8 @@ include("InterfaceVariables.php");
 //Fetching the start and end date and setting a custom format
 $startDate = date("j M, Y", strtotime($_GET['startDate']));
 $endDate = date("j M, Y", strtotime($_GET['endDate']));
+$StartDateSQL = date("Ymd", strtotime($_GET['startDate']));
+$EndDateSQL = date("Ymd", strtotime($_GET['endDate'] . ' +1 day'));
 
 //Checking if either is empty and giving the user an error
 if(empty($_GET["startDate"])) {
@@ -20,8 +22,11 @@ if(empty($_GET["endDate"])) {
 	echo "<script>alert('Error: Please specify an end date');location='transactionHistoryInterface.php?iban=$iban';</script>";
 }
 
+//debug echo
+//echo "<script>alert('Start Date: $StartDate | End Date: $EndDate');</script>";
 
-$result = transactionHistory($iban, $startDate, $endDate);
+
+$result = transactionHistory($iban, $StartDateSQL, $EndDateSQL);
 
 function displayHistory($result, $IBAN, $currency){
 	while($row = mysqli_fetch_assoc($result)){
