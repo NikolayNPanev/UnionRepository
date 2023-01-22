@@ -22,9 +22,6 @@ if(empty($_GET["endDate"])) {
 	echo "<script>alert('Error: Please specify an end date');location='transactionHistoryInterface.php?iban=$iban';</script>";
 }
 
-//debug echo
-//echo "<script>alert('Start Date: $StartDate | End Date: $EndDate');</script>";
-
 
 $result = transactionHistory($iban, $StartDateSQL, $EndDateSQL);
 
